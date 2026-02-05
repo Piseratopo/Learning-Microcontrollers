@@ -1,0 +1,87 @@
+A51 MACRO ASSEMBLER  MAIN                                                                 02/05/2026 17:21:38 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\main.obj
+ASSEMBLER INVOKED BY: D:\Keil_v5\C51\BIN\A51.EXE main.a51 SET(SMALL) DEBUG PRINT(.\Listings\main.lst) OBJECT(.\Objects\m
+                      ain.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  00A7                 1     Pin_EN equ P2.7
+  00A6                 2     Pin_RS equ P2.6
+  00A5                 3     Pin_WR equ P2.5
+                       4     
+0000                   5     org 0000H
+                       6             
+0000                   7     LOOP:   
+0000 7438              8             mov A, #38H
+0002 111A              9             acall WRITE_COMMAND
+                      10             
+0004 740C             11             mov A, #0CH
+0006 111A             12             acall WRITE_COMMAND
+                      13             
+0008 7401             14             mov A, #01H
+000A 111A             15             acall WRITE_COMMAND
+                      16             
+000C 7448             17             mov A, #'H'
+000E 1127             18             acall WRITE_DATA
+                      19             
+0010 7469             20             mov A, #'i'
+0012 1127             21             acall WRITE_DATA
+                      22             
+0014 742E             23             mov A, #'.'
+0016 1127             24             acall WRITE_DATA
+                      25             
+0018 80FE             26             sjmp $
+                      27     
+001A                  28     WRITE_COMMAND:
+001A F580             29             mov P0, A
+001C C2A6             30             clr Pin_RS
+001E C2A5             31             clr Pin_WR
+0020 D2A7             32             setb Pin_EN
+0022 C2A7             33             clr Pin_EN
+0024 1134             34             acall DELAY
+0026 22               35             ret
+                      36     
+0027                  37     WRITE_DATA:
+0027 F580             38             mov P0, A
+0029 D2A6             39             setb Pin_RS
+002B C2A5             40             clr Pin_WR
+002D D2A7             41             setb Pin_EN
+002F C2A7             42             clr Pin_EN
+0031 1134             43             acall DELAY
+0033 22               44             ret
+                      45     
+0034                  46     DELAY:
+0034 7B0A             47             mov R3, #10
+0036 7CFF             48             DELAY_STOP_2: mov R4, #255
+0038 DCFE             49             DELAY_STOP: djnz R4, DELAY_STOP
+003A DBFA             50             djnz R3, DELAY_STOP_2
+003C 22               51             ret
+                      52     end
+A51 MACRO ASSEMBLER  MAIN                                                                 02/05/2026 17:21:38 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0034H   A   
+DELAY_STOP . . . .  C ADDR   0038H   A   
+DELAY_STOP_2 . . .  C ADDR   0036H   A   
+LOOP . . . . . . .  C ADDR   0000H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+PIN_EN . . . . . .  B ADDR   00A0H.7 A   
+PIN_RS . . . . . .  B ADDR   00A0H.6 A   
+PIN_WR . . . . . .  B ADDR   00A0H.5 A   
+WRITE_COMMAND. . .  C ADDR   001AH   A   
+WRITE_DATA . . . .  C ADDR   0027H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

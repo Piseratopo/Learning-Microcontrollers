@@ -1,0 +1,95 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    02/05/2026  16:21:44  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\main.obj TO .\Objects\matrixMusic PRINT (.\Listings\matrixMusic.m51) RAMSIZE (256)
+>> 
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\main.obj (MAIN)
+
+
+LINK MAP OF MODULE:  .\Objects\matrixMusic (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0056H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\matrixMusic (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  D:00F0H         SYMBOL        B
+  C:001DH         SYMBOL        CHECK_COL_1
+  C:0005H         SYMBOL        CHECK_COL_2
+  C:000DH         SYMBOL        CHECK_COL_3
+  C:0015H         SYMBOL        CHECK_COL_4
+  C:0045H         SYMBOL        CHECK_ROW_1
+  C:002DH         SYMBOL        CHECK_ROW_2
+  C:0035H         SYMBOL        CHECK_ROW_3
+  C:003DH         SYMBOL        CHECK_ROW_4
+  N:0030H         SYMBOL        COLUMN_POS
+  C:0028H         SYMBOL        END_CHECK_COL
+  C:0048H         SYMBOL        END_CHECK_ROW
+  C:0053H         SYMBOL        END_LOOP
+  C:0000H         SYMBOL        LOOP
+  C:0025H         SYMBOL        NO_PRESS
+  D:0090H         SYMBOL        P1
+  D:00A0H         SYMBOL        P2
+  N:0031H         SYMBOL        ROW_POS
+  C:0000H         LINE#         9
+  C:0003H         LINE#         10
+  C:0005H         LINE#         12
+  C:0008H         LINE#         13
+  C:000BH         LINE#         14
+  C:000DH         LINE#         16
+  C:0010H         LINE#         17
+  C:0013H         LINE#         18
+  C:0015H         LINE#         20
+  C:0018H         LINE#         21
+  C:001BH         LINE#         22
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  02/05/2026  16:21:44  PAGE 2
+
+
+  C:001DH         LINE#         24
+  C:0020H         LINE#         25
+  C:0023H         LINE#         26
+  C:0025H         LINE#         28
+  C:0028H         LINE#         32
+  C:002BH         LINE#         33
+  C:002DH         LINE#         36
+  C:0030H         LINE#         37
+  C:0033H         LINE#         38
+  C:0035H         LINE#         40
+  C:0038H         LINE#         41
+  C:003BH         LINE#         42
+  C:003DH         LINE#         44
+  C:0040H         LINE#         45
+  C:0043H         LINE#         46
+  C:0045H         LINE#         48
+  C:0048H         LINE#         53
+  C:004AH         LINE#         54
+  C:004DH         LINE#         55
+  C:004EH         LINE#         56
+  C:0050H         LINE#         57
+  C:0051H         LINE#         58
+  C:0053H         LINE#         62
+  -------         ENDMOD        MAIN
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0056H BYTE ( 4%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=86
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

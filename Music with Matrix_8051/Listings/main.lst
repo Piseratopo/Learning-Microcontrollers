@@ -1,0 +1,108 @@
+A51 MACRO ASSEMBLER  MAIN                                                                 02/05/2026 16:21:44 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\main.obj
+ASSEMBLER INVOKED BY: D:\Keil_v5\C51\BIN\A51.EXE main.a51 SET(SMALL) DEBUG PRINT(.\Listings\main.lst) OBJECT(.\Objects\m
+                      ain.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0030                 1     Column_pos equ 30H
+  0031                 2     Row_pos equ 31H
+                       3     
+0000                   4     org 0000H
+                       5             
+0000                   6     LOOP:
+                       7             ; === Checking with column is pressed ===
+                       8             ; Return column 0 if the pressed button is on this column or no button is pressed.
+0000 75900F            9             mov P1, #0FH
+0003 A890             10             mov R0, P1
+0005                  11             CHECK_COL_2:
+0005 B80B05           12                     cjne R0, #1011B, CHECK_COL_3
+0008 753002           13                     mov Column_pos, #2
+000B 801B             14                     sjmp END_CHECK_COL
+000D                  15             CHECK_COL_3:
+000D B80D05           16                     cjne R0, #1101B, CHECK_COL_4
+0010 753003           17                     mov Column_pos, #3
+0013 8013             18                     sjmp END_CHECK_COL
+0015                  19             CHECK_COL_4:
+0015 B80E05           20                     cjne R0, #1110B, CHECK_COL_1
+0018 753004           21                     mov Column_pos, #4
+001B 800B             22                     sjmp END_CHECK_COL
+001D                  23             CHECK_COL_1:
+001D B80705           24                     cjne R0, #0111B, NO_PRESS
+0020 753001           25                     mov Column_pos, #1
+0023 8003             26                     sjmp END_CHECK_COL
+0025                  27             NO_PRESS:
+0025 753000           28                     mov Column_pos, #0
+0028                  29             END_CHECK_COL:
+                      30             
+                      31             ; === Checking with row is pressed ===
+0028 7590F0           32             mov P1, #0F0H
+002B A890             33             mov R0, P1
+                      34             
+002D                  35             CHECK_ROW_2:
+002D B8B005           36                     cjne R0, #10110000B, CHECK_ROW_3
+0030 753101           37                     mov Row_pos, #1
+0033 8013             38                     sjmp END_CHECK_ROW
+0035                  39             CHECK_ROW_3:
+0035 B8D005           40                     cjne R0, #11010000B, CHECK_ROW_4
+0038 753102           41                     mov Row_pos, #2
+003B 800B             42                     sjmp END_CHECK_ROW
+003D                  43             CHECK_ROW_4:
+003D B8E005           44                     cjne R0, #11100000B, CHECK_ROW_1
+0040 753103           45                     mov Row_pos, #3
+0043 8003             46                     sjmp END_CHECK_ROW
+0045                  47             CHECK_ROW_1:
+0045 753100           48                     mov Row_pos, #0
+0048                  49             END_CHECK_ROW:
+                      50             
+                      51             ; === Combining column and row checks to get the button's position ===
+                      52             
+0048 E531             53             mov A, Row_pos
+004A 75F004           54             mov B, #4
+004D A4               55             mul AB
+004E 2530             56             add A, Column_pos
+0050 F4               57             cpl A ; Display on the LED bar through P2
+A51 MACRO ASSEMBLER  MAIN                                                                 02/05/2026 16:21:44 PAGE     2
+
+0051 F5A0             58             mov P2, A
+                      59                     
+                      60     
+0053                  61     END_LOOP:
+0053 020000           62             ljmp LOOP
+                      63     
+                      64     end
+A51 MACRO ASSEMBLER  MAIN                                                                 02/05/2026 16:21:44 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+CHECK_COL_1. . . .  C ADDR   001DH   A   
+CHECK_COL_2. . . .  C ADDR   0005H   A   
+CHECK_COL_3. . . .  C ADDR   000DH   A   
+CHECK_COL_4. . . .  C ADDR   0015H   A   
+CHECK_ROW_1. . . .  C ADDR   0045H   A   
+CHECK_ROW_2. . . .  C ADDR   002DH   A   
+CHECK_ROW_3. . . .  C ADDR   0035H   A   
+CHECK_ROW_4. . . .  C ADDR   003DH   A   
+COLUMN_POS . . . .  N NUMB   0030H   A   
+END_CHECK_COL. . .  C ADDR   0028H   A   
+END_CHECK_ROW. . .  C ADDR   0048H   A   
+END_LOOP . . . . .  C ADDR   0053H   A   
+LOOP . . . . . . .  C ADDR   0000H   A   
+NO_PRESS . . . . .  C ADDR   0025H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+ROW_POS. . . . . .  N NUMB   0031H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

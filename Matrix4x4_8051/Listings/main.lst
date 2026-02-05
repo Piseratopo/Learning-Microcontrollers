@@ -1,99 +1,44 @@
-A51 MACRO ASSEMBLER  MAIN                                                                 01/15/2026 17:03:51 PAGE     1
+A51 MACRO ASSEMBLER  MAIN                                                                 02/04/2026 00:36:33 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
-OBJECT MODULE PLACED IN .\Objects\main.obj
-ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE main.a51 SET(SMALL) DEBUG PRINT(.\Listings\main.lst) OBJECT(.\Objects\m
+NO OBJECT MODULE REQUESTED
+ASSEMBLER INVOKED BY: D:\Keil_v5\C51\BIN\A51.EXE main.a51 SET(SMALL) DEBUG PRINT(.\Listings\main.lst) OBJECT(.\Objects\m
                       ain.obj) EP
 
 LOC  OBJ            LINE     SOURCE
 
-                       1     ; --- 8051 Assembly for 8x8 LED Matrix with 74HC595 ---
-                       2     
-                       3     ; PIN DEFINITIONS
-  00B4                 4     SER     EQU P3.4    ; Serial Data Input
-  00B5                 5     RCLK    EQU P3.5    ; Latch Clock (Storage Clock)
-  00B6                 6     SRCLK   EQU P3.6    ; Shift Clock
-                       7     
-0000                   8     ORG 0000H
-0000 020108            9     LJMP MAIN
-                      10     
-                      11     ; --- Image Data (Pattern for a smiley face) ---
-0100                  12     ORG 0100H
-0100                  13     SMILEY:
-0100 3C               14         DB 00111100B    ; Row 0 (Top)
-0101 42               15         DB 01000010B    ; Row 1
-0102 A5               16         DB 10100101B    ; Row 2 (Eyes)
-0103 81               17         DB 10000001B    ; Row 3
-0104 A5               18         DB 10100101B    ; Row 4 (Mouth corners)
-0105 99               19         DB 10011001B    ; Row 5 (Mouth)
-0106 42               20         DB 01000010B    ; Row 6
-0107 3C               21         DB 00111100B    ; Row 7 (Bottom)
-                      22     
-0108                  23     MAIN:
-0108 900100           24         MOV DPTR, #SMILEY       ; Point to pattern data
-010B                  25     LOOP:
-010B 310F             26         ACALL DISPLAY           ; Call the scanning routine
-010D 80FC             27         SJMP LOOP               ; Repeat forever
-                      28     
-                      29     ; --- Scanning Routine ---
-010F                  30     DISPLAY:
-010F 7800             31         MOV R0, #0              ; Row index (0 to 7)
-0111 79FE             32         MOV R1, #11111110B      ; Row selection byte (Active Low: 0 selects the row)
-                      33         
-0113                  34     SCAN_LOOP:
-                      35         ; 1. Clear Port 0 to prevent ghosting
-0113 758000           36         MOV P0, #00H            
-                      37     
-                      38         ; 2. Send the Row Selection Byte to 74HC595
-0116 E9               39         MOV A, R1
-0117 3127             40         ACALL SEND_595          ; Shift Row Select bit into 595
-                      41     
-                      42         ; 3. Output Column Data to Port 0
-0119 E8               43         MOV A, R0
-011A 93               44         MOVC A, @A+DPTR         ; Get byte from table
-011B F580             45         MOV P0, A               ; Send to P00-P07
-                      46         
-                      47         ; 4. Short Delay for brightness
-011D 313D             48         ACALL DELAY
-                      49         
-                      50         ; 5. Prepare for next row
-011F E9               51         MOV A, R1
-0120 23               52         RL A                    ; Rotate Left (e.g., 11111110 -> 11111101)
-0121 F9               53         MOV R1, A
-0122 08               54         INC R0                  ; Next row
-0123 B808ED           55         CJNE R0, #8, SCAN_LOOP
-0126 22               56         RET
-                      57     
-A51 MACRO ASSEMBLER  MAIN                                                                 01/15/2026 17:03:51 PAGE     2
-
-                      58     ; --- 74HC595 Serial Transfer Routine ---
-                      59     ; Sends the byte in Accumulator (A) to the 74HC595
-0127                  60     SEND_595:
-0127 C0F0             61         PUSH B
-0129 75F008           62         MOV B, #8               ; Loop 8 times (8 bits)
-012C                  63     SEND_BIT:
-012C 33               64         RLC A                   ; Rotate bit 7 into Carry flag
-012D 92B4             65         MOV SER, C              ; Place Carry bit onto SER pin (P3.4)
-012F C2B6             66         CLR SRCLK               ; Pulse Shift Clock (P3.6)
-0131 D2B6             67         SETB SRCLK
-0133 D5F0F6           68         DJNZ B, SEND_BIT        ; Repeat for all bits
-                      69         
-0136 C2B5             70         CLR RCLK                ; Pulse Latch Clock (P3.5) to update outputs
-0138 D2B5             71         SETB RCLK
-013A D0F0             72         POP B
-013C 22               73         RET
-                      74     
-                      75     ; --- Delay Routine ---
-013D                  76     DELAY:
-013D 7F0A             77         MOV R7, #10
-013F 7E32             78     D1: MOV R6, #50
-0141 DEFE             79         DJNZ R6, $
-0143 DFFA             80         DJNZ R7, D1
-0145 22               81         RET
-                      82     
-                      83     END
-A51 MACRO ASSEMBLER  MAIN                                                                 01/15/2026 17:03:51 PAGE     3
+  0030                 1     Store_column    equ 30H
+  0031                 2     Store_row               equ 31H
+                       3     
+0000                   4     org 0000H
+                       5     
+0000                   6     MAIN:
+                       7             ; Column scan
+                       8                     ; P1.7-P1.4 (Rows)    = 0 (Ground)
+                       9                     ; P1.3-P1.0 (Columns) = 1 (Input/Pull-up)
+0000 75900F           10             mov P1, #0FH
+0003 859030           11             mov Store_column, P1
+                      12             
+                      13             ; Row scan
+                      14                     ; P1.7-P1.4 (Rows)    = 1 (Input/Pull-up)
+                      15                     ; P1.3-P1.0 (Columns) = 0 (Ground)
+0006 7590F0           16             mov P1, #0F0H
+0009 859031           17             mov Store_row, P1
+                      18             
+                      19             ; Combine and display
+000C E530             20             mov A, Store_column
+000E 4531             21             orl A, Store_row
+0010 F5A0             22             mov P2, A
+0012 80EC             23     sjmp MAIN
+0014                  24     jb A.4, main
+*** _____________________________^
+*** ______________________________^
+*** ERROR #A9 IN 24 (main.a51, LINE 24): SYNTAX ERROR
+*** ERROR #A9 IN 24 (main.a51, LINE 24): SYNTAX ERROR
+                      25     
+                      26     end
+A51 MACRO ASSEMBLER  MAIN                                                                 02/04/2026 00:36:33 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -101,24 +46,14 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-B. . . . . . . . .  D ADDR   00F0H   A   
-D1 . . . . . . . .  C ADDR   013FH   A   
-DELAY. . . . . . .  C ADDR   013DH   A   
-DISPLAY. . . . . .  C ADDR   010FH   A   
-LOOP . . . . . . .  C ADDR   010BH   A   
-MAIN . . . . . . .  C ADDR   0108H   A   
-P0 . . . . . . . .  D ADDR   0080H   A   
-P3 . . . . . . . .  D ADDR   00B0H   A   
-RCLK . . . . . . .  B ADDR   00B0H.5 A   
-SCAN_LOOP. . . . .  C ADDR   0113H   A   
-SEND_595 . . . . .  C ADDR   0127H   A   
-SEND_BIT . . . . .  C ADDR   012CH   A   
-SER. . . . . . . .  B ADDR   00B0H.4 A   
-SMILEY . . . . . .  C ADDR   0100H   A   
-SRCLK. . . . . . .  B ADDR   00B0H.6 A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+STORE_COLUMN . . .  N NUMB   0030H   A   
+STORE_ROW. . . . .  N NUMB   0031H   A   
 
 
 REGISTER BANK(S) USED: 0 
 
 
-ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
+ASSEMBLY COMPLETE.  0 WARNING(S), 2 ERROR(S)

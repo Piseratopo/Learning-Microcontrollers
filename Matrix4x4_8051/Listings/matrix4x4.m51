@@ -1,8 +1,8 @@
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    01/15/2026  17:03:51  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    02/04/2026  00:36:25  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\main.obj TO .\Objects\matrix4x4 PRINT (.\Listings\matrix4x4.m51) RAMSIZE (256)
+D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\main.obj TO .\Objects\matrix4x4 PRINT (.\Listings\matrix4x4.m51) RAMSIZE (256)
 
 
 INPUT MODULES INCLUDED:
@@ -19,7 +19,7 @@ LINK MAP OF MODULE:  .\Objects\matrix4x4 (MAIN)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     0146H     ABSOLUTE     
+            CODE    0000H     0017H     ABSOLUTE     
 
 
 
@@ -29,64 +29,26 @@ SYMBOL TABLE OF MODULE:  .\Objects\matrix4x4 (MAIN)
   ----------------------------------
 
   -------         MODULE        MAIN
-  D:00F0H         SYMBOL        B
-  C:013FH         SYMBOL        D1
-  C:013DH         SYMBOL        DELAY
-  C:010FH         SYMBOL        DISPLAY
-  C:010BH         SYMBOL        LOOP
-  C:0108H         SYMBOL        MAIN
-  D:0080H         SYMBOL        P0
-  D:00B0H         SYMBOL        P3
-  B:00B0H.5       SYMBOL        RCLK
-  C:0113H         SYMBOL        SCAN_LOOP
-  C:0127H         SYMBOL        SEND_595
-  C:012CH         SYMBOL        SEND_BIT
-  B:00B0H.4       SYMBOL        SER
-  C:0100H         SYMBOL        SMILEY
-  B:00B0H.6       SYMBOL        SRCLK
-  C:0000H         LINE#         9
-  C:0108H         LINE#         24
-  C:010BH         LINE#         26
-  C:010DH         LINE#         27
-  C:010FH         LINE#         31
-  C:0111H         LINE#         32
-  C:0113H         LINE#         36
-  C:0116H         LINE#         39
-  C:0117H         LINE#         40
-  C:0119H         LINE#         43
-  C:011AH         LINE#         44
-  C:011BH         LINE#         45
-  C:011DH         LINE#         48
-  C:011FH         LINE#         51
-  C:0120H         LINE#         52
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/15/2026  17:03:51  PAGE 2
-
-
-  C:0121H         LINE#         53
-  C:0122H         LINE#         54
-  C:0123H         LINE#         55
-  C:0126H         LINE#         56
-  C:0127H         LINE#         61
-  C:0129H         LINE#         62
-  C:012CH         LINE#         64
-  C:012DH         LINE#         65
-  C:012FH         LINE#         66
-  C:0131H         LINE#         67
-  C:0133H         LINE#         68
-  C:0136H         LINE#         70
-  C:0138H         LINE#         71
-  C:013AH         LINE#         72
-  C:013CH         LINE#         73
-  C:013DH         LINE#         77
-  C:013FH         LINE#         78
-  C:0141H         LINE#         79
-  C:0143H         LINE#         80
-  C:0145H         LINE#         81
+  D:00E0H         SYMBOL        ACC
+  C:0000H         SYMBOL        MAIN
+  D:0090H         SYMBOL        P1
+  D:00A0H         SYMBOL        P2
+  N:0030H         SYMBOL        STORE_COLUMN
+  N:0031H         SYMBOL        STORE_ROW
+  C:0000H         LINE#         10
+  C:0003H         LINE#         11
+  C:0006H         LINE#         16
+  C:0009H         LINE#         17
+  C:000CH         LINE#         20
+  C:000EH         LINE#         21
+  C:0010H         LINE#         22
+  C:0012H         LINE#         23
+  C:0014H         LINE#         24
   -------         ENDMOD        MAIN
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0049H BYTE ( 3%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0017H BYTE ( 1%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=326
+Program Size: data=8.0 xdata=0 code=23
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
