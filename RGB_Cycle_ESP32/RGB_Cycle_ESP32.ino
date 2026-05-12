@@ -13,21 +13,6 @@ void setup() {
 }
 
 void loop() {
-  // Red
-  pixels.setPixelColor(0, pixels.Color(255, 0, 0));
-  pixels.show();
-  delay(1000);
-
-  // Green
-  pixels.setPixelColor(0, pixels.Color(0, 255, 0));
-  pixels.show();
-  delay(1000);
-
-  // Blue
-  pixels.setPixelColor(0, pixels.Color(0, 0, 255));
-  pixels.show();
-  delay(1000);
-
   // Rainbow Cycle effect
   for(long firstPixelHue = 0; firstPixelHue < 5*65536; firstPixelHue += 256) {
     pixels.setPixelColor(0, pixels.gamma32(pixels.ColorHSV(firstPixelHue)));
