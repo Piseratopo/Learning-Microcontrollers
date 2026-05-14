@@ -23,9 +23,6 @@ void loop() {
   // 3. IMPORTANT: Wait for transmission to finish
   Serial2.flush(); 
 
-  // 4. Switch back to Receive mode (optional, but good practice)
-  digitalWrite(RE_DE_PIN, LOW);
-
   // 5. Debug to USB
   Serial.println("Sent: " + msg);
   
