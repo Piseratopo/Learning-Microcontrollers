@@ -1,0 +1,234 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{Li2025}{inproceedings}{}{}
+      \name{author}{7}{}{%
+        {{hash=f67faf21f9628bdc3c6326d783cd3252}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Yinze},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=fb6fb5bb2cbe8a32298ea898d87512a6}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Zhaoyi},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=cec8346b824114980f87fe452d1cf1d4}{%
+           family={Lommaert},
+           familyi={L\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=fbc72c78fc7dfa5c175e9f41d5625f5c}{%
+           family={Wolf-Monheim},
+           familyi={W\bibinithyphendelim M\bibinitperiod},
+           given={Friedrich},
+           giveni={F\bibinitperiod}}}%
+        {{hash=9ebf6b9486fce027e29836dd0bb0364b}{%
+           family={Newton},
+           familyi={N\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=c02282c0fcc4d7a93f573c9ab1ddd05c}{%
+           family={Michiels},
+           familyi={M\bibinitperiod},
+           given={Sam},
+           giveni={S\bibinitperiod}}}%
+        {{hash=09898dd06ebbe31c53c57923c4c951f7}{%
+           family={Hughes},
+           familyi={H\bibinitperiod},
+           given={Danny},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier B.V.}%
+      }
+      \strng{namehash}{7538b3750da1f8491b93d59f7a7d84d0}
+      \strng{fullhash}{d793268974c35f1ecb695c9718cc57e7}
+      \strng{fullhashraw}{d793268974c35f1ecb695c9718cc57e7}
+      \strng{bibnamehash}{7538b3750da1f8491b93d59f7a7d84d0}
+      \strng{authorbibnamehash}{7538b3750da1f8491b93d59f7a7d84d0}
+      \strng{authornamehash}{7538b3750da1f8491b93d59f7a7d84d0}
+      \strng{authorfullhash}{d793268974c35f1ecb695c9718cc57e7}
+      \strng{authorfullhashraw}{d793268974c35f1ecb695c9718cc57e7}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Procedia Computer Science}
+      \field{issn}{18770509}
+      \field{title}{Compression at the Edge for Energy- and Bandwidth-Efficient Industrial Audio Analysis}
+      \field{volume}{265}
+      \field{year}{2025}
+      \field{pages}{260\bibrangedash 267}
+      \range{pages}{8}
+      \keyw{Anomalous Sound Detection,Audio Compression,Industrial IoT,Low-Power Communication,Sound Event Segmentation}
+    \endentry
+    \entry{Whitlock2005}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=c208b90d64cf3d792a114c2d9f40d36f}{%
+           family={Whitlock},
+           familyi={W\bibinitperiod},
+           given={Bill},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{c208b90d64cf3d792a114c2d9f40d36f}
+      \strng{fullhash}{c208b90d64cf3d792a114c2d9f40d36f}
+      \strng{fullhashraw}{c208b90d64cf3d792a114c2d9f40d36f}
+      \strng{bibnamehash}{c208b90d64cf3d792a114c2d9f40d36f}
+      \strng{authorbibnamehash}{c208b90d64cf3d792a114c2d9f40d36f}
+      \strng{authornamehash}{c208b90d64cf3d792a114c2d9f40d36f}
+      \strng{authorfullhash}{c208b90d64cf3d792a114c2d9f40d36f}
+      \strng{authorfullhashraw}{c208b90d64cf3d792a114c2d9f40d36f}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Understanding, Finding, \& Eliminating Ground Loops in Audio \& Video Systems}
+      \field{type}{techreport}
+      \field{year}{2005}
+    \endentry
+    \entry{tao2026research}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=a42ffc6566bc74fce9dd129df41b29b1}{%
+           family={Tao},
+           familyi={T\bibinitperiod},
+           given={Yuan},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=1276a227ff480bbe7322dd5f8de597c1}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Wuguang},
+           giveni={W\bibinitperiod}}}%
+        {{hash=6d0a3d2f0102a4adfb61e16f1efe5471}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Yan},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=e9cfc04c642be07e201b40d342543283}{%
+           family={Cao},
+           familyi={C\bibinitperiod},
+           given={Yuliang},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{216d77cded5ebcdc366df4eb650c75ca}
+      \strng{fullhash}{b4c029043869aa75a9215e80b05ee864}
+      \strng{fullhashraw}{b4c029043869aa75a9215e80b05ee864}
+      \strng{bibnamehash}{216d77cded5ebcdc366df4eb650c75ca}
+      \strng{authorbibnamehash}{216d77cded5ebcdc366df4eb650c75ca}
+      \strng{authornamehash}{216d77cded5ebcdc366df4eb650c75ca}
+      \strng{authorfullhash}{b4c029043869aa75a9215e80b05ee864}
+      \strng{authorfullhashraw}{b4c029043869aa75a9215e80b05ee864}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2026 2nd International Conference on Electrical Automation and Artificial Intelligence (ICEAAI)}
+      \field{title}{Research and Application Analysis of Key Technologies for Traditional Serial Interfaces in Industrial Control Systems}
+      \field{year}{2026}
+      \field{pages}{511\bibrangedash 514}
+      \range{pages}{4}
+    \endentry
+    \entry{czn15e_datasheet}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=d6e146ba2d1e0842f8f56d848200f5ee}{%
+           family={{Ningbo Yuelong Electronics}},
+           familyi={N\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Ningbo Yuelong Electronics Co., Ltd.}%
+      }
+      \strng{namehash}{d6e146ba2d1e0842f8f56d848200f5ee}
+      \strng{fullhash}{d6e146ba2d1e0842f8f56d848200f5ee}
+      \strng{fullhashraw}{d6e146ba2d1e0842f8f56d848200f5ee}
+      \strng{bibnamehash}{d6e146ba2d1e0842f8f56d848200f5ee}
+      \strng{authorbibnamehash}{d6e146ba2d1e0842f8f56d848200f5ee}
+      \strng{authornamehash}{d6e146ba2d1e0842f8f56d848200f5ee}
+      \strng{authorfullhash}{d6e146ba2d1e0842f8f56d848200f5ee}
+      \strng{authorfullhashraw}{d6e146ba2d1e0842f8f56d848200f5ee}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Omnidirectional Electret and Condenser Microphone --- CZN-15E}
+      \keyw{ALLDATASHEET,ARCHIVE,CATALOG,CHIP,DATABOOK,DATASHEET,ELECTRONIC COMPONENT,IC,ISO COMPONENT,PDF,PDF DATASHEET,SEMICONDUCTOR,TRANSISTOR}
+    \endentry
+    \entry{max4466_datasheet}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=708945beacf49e6e06951ec3f877a859}{%
+           family={{Maxim Integrated}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {San Jose, CA}%
+      }
+      \list{organization}{1}{%
+        {Maxim Integrated Products, Inc.}%
+      }
+      \strng{namehash}{708945beacf49e6e06951ec3f877a859}
+      \strng{fullhash}{708945beacf49e6e06951ec3f877a859}
+      \strng{fullhashraw}{708945beacf49e6e06951ec3f877a859}
+      \strng{bibnamehash}{708945beacf49e6e06951ec3f877a859}
+      \strng{authorbibnamehash}{708945beacf49e6e06951ec3f877a859}
+      \strng{authornamehash}{708945beacf49e6e06951ec3f877a859}
+      \strng{authorfullhash}{708945beacf49e6e06951ec3f877a859}
+      \strng{authorfullhashraw}{708945beacf49e6e06951ec3f877a859}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Rev 2}
+      \field{note}{19-1950}
+      \field{title}{MAX4465--MAX4469: Low-Cost, Micropower, SC70/SOT23-8, Microphone Preamplifiers with Complete Shutdown}
+      \field{year}{2012}
+    \endentry
+    \entry{esp32s3_datasheet}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=66589871a3c3f27bcbf3891133af42b1}{%
+           family={{Espressif Systems}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Espressif Systems (Shanghai) Co., Ltd.}%
+      }
+      \strng{namehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{bibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorbibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authornamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{3}
+      \field{note}{Version 2.2}
+      \field{title}{ESP32-S3 Series Datasheet}
+      \field{year}{2026}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
