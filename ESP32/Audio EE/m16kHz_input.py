@@ -44,6 +44,32 @@ def apply_noise_reduction(signal, noise):
     return np.clip(cleaned_signal + 127.0, 0, 255).astype(np.uint8)
 
 
+def low_pass_filter(signal, sample_rate, cutoff_hz=9000):
+    """Apply a simple FFT-based low-pass filter to remove frequencies above cutoff_hz.
+
+    Works on 8-bit unsigned PCM (`uint8`) by centering around 0, filtering, then
+    returning `uint8` data.
+    """
+    if len(signal) == 0:
+        return np.array([], dtype=np.uint8)
+
+    n = len(signal)
+    nyquist = sample_rate / 2.0
+    if cutoff_hz >= nyquist:
+        return signal
+
+    # Center to zero, FFT, mask high frequencies, inverse FFT
+    sig_f = signal.astype(float) - 127.0
+    sig_fft = np.fft.rfft(sig_f)
+    freqs = np.fft.rfftfreq(n, d=1.0 / sample_rate)
+
+    mask = freqs <= cutoff_hz
+    sig_fft_filtered = sig_fft * mask
+
+    cleaned = np.fft.irfft(sig_fft_filtered, n=n)
+    return np.clip(cleaned + 127.0, 0, 255).astype(np.uint8)
+
+
 def flush_serial_input(ser, duration=FLUSH_DURATION):
     ser.reset_input_buffer()
     deadline = time.time() + duration
@@ -137,22 +163,27 @@ def record_audio():
         print("3. Processing audio...")
         signal_data = np.frombuffer(rec_buffer, dtype=np.uint8)
 
-        save_wav(FILE_NAME, signal_data, captured_sample_rate)
+        # Apply 9 kHz low-pass filter to remove higher-frequency components
+        filtered_data = low_pass_filter(
+            signal_data, captured_sample_rate, cutoff_hz=9000
+        )
 
-        # Prepare and save metadata
+        save_wav(FILE_NAME, filtered_data, captured_sample_rate)
+
+        # Prepare and save metadata (based on filtered signal)
         metadata = {
             "Timestamp": datetime.now().isoformat(),
             "Sample_Rate_Hz": captured_sample_rate,
             "Duration_Seconds": round(actual_duration, 2),
             "Total_Samples": actual_count,
-            "Signal_Mean": round(float(np.mean(signal_data)), 2),
-            "Signal_Std": round(float(np.std(signal_data)), 2),
+            "Signal_Mean": round(float(np.mean(filtered_data)), 2),
+            "Signal_Std": round(float(np.std(filtered_data)), 2),
             "WAV_File": FILE_NAME,
         }
         save_metadata_to_csv(METADATA_FILE, metadata)
 
-        # Save detailed data
-        save_data_to_csv(DATA_FILE, signal_data, label="raw_audio")
+        # Save detailed data (filtered)
+        save_data_to_csv(DATA_FILE, filtered_data, label="filtered_audio")
 
         print(f"Success! Saved as {FILE_NAME}")
         print(f"Metadata saved to {METADATA_FILE}")

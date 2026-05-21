@@ -1,2 +1,2 @@
 Timestamp,Sample_Rate_Hz,Duration_Seconds,Total_Samples,Signal_Mean,Signal_Std,WAV_File
-2026-05-22T10:27:34.839969,16140,2.78,44825,120.34,5.15,manual_recording_cleaned.wav
+2026-05-22T04:04:25.548078,16088,13.92,224023,120.7,17.76,manual_recording_cleaned.wav
