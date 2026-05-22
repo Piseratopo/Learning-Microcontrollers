@@ -25,7 +25,7 @@
 \addbibresource{references.bib}
 
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows, positioning}
+\usetikzlibrary{shapes.geometric, arrows, positioning, arrows.meta}
 
 \usepackage{siunitx}
 \sisetup{
@@ -155,7 +155,7 @@ Dựa trên sơ đồ khối trên, các thành phần chính của hệ thống
 
 \ 
 
-Trong hệ thống này, loại cảm biến được sử dụng là mi-crô tụ điện có phân cực CZN-15E với kích thước nhỏ gọn và độ nhạy cao.
+Trong hệ thống này, loại cảm biến được sử dụng là micro tụ điện có phân cực CZN-15E với kích thước nhỏ gọn và độ nhạy cao.
 
 \begin{figure}[ht]
    \centering
@@ -263,7 +263,208 @@ Trong môi trường công nghiệp, nhiễu điện từ thường tác động
 \end{equation}
 Kết quả là tín hiệu hữu ích vẫn được bảo toàn ngay cả khi có sự hiện diện của nhiễu biên độ lớn. Ngoài ra, giao thức này cho phép kết nối đa điểm (multi-drop) với tối đa 32 thiết bị trên cùng một đường và khoảng cách truyền dẫn có thể đạt tới 1200 mét.
 
+\chapter{Phân tích yêu cầu và thiết kế hệ thống}
 
+\section{Yêu cầu hệ thống}
+
+\subsection{Yêu cầu chức năng}
+Hệ thống được thiết kế để thực hiện chức năng thu âm thanh từ môi trường thực tế, số hóa tín hiệu và truyền tải liên tục về máy tính thông qua giao thức RS485. Cụ thể, hệ thống cần đáp ứng các yêu cầu chức năng sau:
+\begin{itemize}
+    \item \textbf{Thu nhận và số hóa:} Hệ thống thu nhận tín hiệu âm thanh tương tự từ môi trường thông qua micro electret, khuếch đại tín hiệu đến mức phù hợp và số hóa bằng bộ ADC nội bộ của vi điều khiển. Tín hiệu sau khi số hóa cần đạt tần số lấy mẫu tối thiểu \qty{16}{kHz} để đảm bảo chất lượng âm thanh dải giọng nói theo tiêu chuẩn Nyquist.
+    \item \textbf{Truyền dữ liệu:} Dữ liệu số hóa phải được truyền liên tục từ ESP32-S3 về máy tính thông qua giao thức RS485 ở tốc độ \qty{460800}{bps}, đảm bảo không bị mất mẫu trong quá trình truyền.
+    \item \textbf{Xử lý tại máy tính:} Phần mềm trên máy tính có thể tiếp nhận luồng dữ liệu, xử lý loại bỏ nhiễu nền và lưu dưới dạng file WAV có thể phát lại.
+\end{itemize}
+
+\subsection{Yêu cầu phi chức năng}
+\begin{itemize}
+    \item \textbf{Độ tin cậy:} 
+    \begin{itemize}
+        \item Hệ thống phải hoạt động ổn định có các nhiễu phát sinh từ mạch nguồn xung và các thiết bị điện xung quanh.
+        \item Cơ chế truyền vi sai của RS485 cần đảm bảo tính toàn vẹn dữ liệu trên toàn bộ chiều dài đường truyền.
+    \end{itemize}
+    \item \textbf{Khả năng tương thích:} 
+    \begin{itemize}
+        \item Toàn bộ hệ thống hoạt động ở mức điện áp \qty{3,3}{V} để đảm bảo tương thích giữa các linh kiện mà không cần mạch dịch mức.
+        \item Nguồn sơ cấp đầu vào là \qty{9}{VDC} qua jack cắm tiêu chuẩn.
+    \end{itemize}
+\end{itemize}
+
+\section{Kiến trúc hệ thống}
+Hệ thống được tổ chức theo kiến trúc một chiều gồm hai thành phần chính:
+\begin{itemize}
+    \item \textbf{Phần cứng:} Mạch nhúng thực hiện nhiệm vụ thu âm và truyền dẫn.
+    \item \textbf{Phần mềm:} Ứng dụng trên máy tính thực hiện nhiệm vụ xử lý và lưu trữ dữ liệu.
+\end{itemize}
+Hai thành phần này kết nối với nhau thông qua đường truyền vật lý RS485.
+
+\begin{figure}[ht]
+   \centering
+   \begin{tikzpicture}[
+      node distance=1.4cm and 2.0cm,
+      block/.style={
+         rectangle, rounded corners=5pt,
+         minimum width=3.4cm, minimum height=1.2cm,
+         text centered, font=\small, align=center
+      },
+      gray_block/.style={block, draw=gray!50, fill=gray!12, text=black},
+      teal_block/.style={block, draw=teal!60, fill=teal!25, text=teal!20!black},
+      coral_block/.style={block, draw=red!35, fill=red!12, text=red!35!black},
+      purple_block/.style={block, draw=violet!55, fill=violet!12, text=violet!35!black},
+      blue_block/.style={block, draw=blue!45, fill=blue!12, text=blue!35!black},
+      green_block/.style={block, draw=green!45!black, fill=green!12, text=green!35!black},
+      arrow/.style={-{Stealth[length=5pt]}, semithick},
+      lbl/.style={font=\scriptsize}
+   ]
+
+   \node[teal_block] (hap) {
+      \textbf{Mạch nguồn}\\
+      \scriptsize 9V $\to$ 5V $\to$ 3,3V
+   };
+   \node[gray_block, left=of hap] (nguon) {
+      \textbf{Nguồn 9V DC}\\
+      \scriptsize Đầu vào hệ thống
+   };
+   \node[coral_block, below=of hap] (thu_am) {
+      \textbf{Mạch thu âm}\\
+      \scriptsize Micro + khuếch đại
+   };
+   \node[gray_block, left=of thu_am] (moitruong) {
+      \textbf{Môi trường}\\
+      \scriptsize Sóng âm thanh
+   };
+   \node[purple_block, right=of thu_am] (vxl) {
+      \textbf{Vi điều khiển}\\
+      \scriptsize ADC + đóng gói
+   };
+   \node[blue_block, below=of vxl] (rs485) {
+      \textbf{Mạch RS485}\\
+      \scriptsize Truyền vi sai
+   };
+   \node[green_block, below=of rs485] (pc) {
+      \textbf{Máy tính (PC)}\\
+      \scriptsize Lọc nhiễu + lưu WAV
+   };
+
+   \draw[arrow] (nguon) -- (hap);
+   \draw[arrow] (hap) -- (thu_am);
+   \draw[arrow] (moitruong) -- node[lbl, above] {Sóng âm} (thu_am);
+   \draw[arrow] (thu_am) -- node[lbl, above] {Analog} (vxl);
+   \draw[arrow] (vxl) -- node[lbl, right] {Dữ liệu số} (rs485);
+   \draw[arrow] (rs485) -- node[lbl, right] {Bus 2 dây} (pc);
+   \draw[arrow] (hap.east) -- (vxl.north);
+
+   \end{tikzpicture}
+   \caption{Sơ đồ kiến trúc tổng thể hệ thống thu âm RS485}
+   \label{fig:kien_truc}
+\end{figure}
+
+
+\section{Thiết kế phần cứng}
+
+\subsection{Mạch nguồn}
+Hệ thống sử dụng cấu trúc nguồn hai tầng để đảm bảo độ ổn định và giảm nhiễu:
+\begin{itemize}
+    \item Nguồn đầu vào \qty{9}{VDC} được đưa qua LM2596S-5.0 –-- một bộ chuyển đổi giảm áp chế độ xung –-- để tạo ra điện áp \qty{5}{V}. 
+    \item Cuộn cảm \qty{33}{\micro\henry} và các tụ lọc \qty{470}{\micro\farad} được bố trí để giảm thiểu gợn sóng ngõ ra.
+    \item Điện áp \qty{5}{V} tiếp tục được đưa qua IC ổn áp tuyến tính (LDO) HT7333 để tạo ra nguồn \qty{3,3}{V} ``sạch'' cấp cho ESP32-S3 và các IC ngoại vi nhạy cảm với nhiễu.
+    \item Các tụ lọc \qty{10}{\micro\farad} được đặt tại ngõ ra để lọc nhiễu cao tần. LED báo nguồn được mắc để chỉ thị trạng thái hoạt động.
+\end{itemize}
+\begin{figure}[ht]
+   \centering
+   \includegraphics[width=\textwidth]{mach_nguon.png}
+   \caption{Sơ đồ nguyên lý mạch nguồn hạ áp từ \qty{9}{V} xuống \qty{5}{V}}
+   \label{fig:power_circuit}
+\end{figure}
+
+\begin{figure}[ht]
+   \centering
+   \includegraphics[width=\textwidth]{mach_nguon_3.3V.png}
+   \caption{Sơ đồ nguyên lý mạch nguồn hạ áp từ \qty{5}{V} xuống \qty{3,3}{V}}
+   \label{fig:power_circuit}
+\end{figure}
+
+\subsection{Mạch thu âm}
+Sơ đồ nguyên lý mạch thu âm (Hình \ref{fig:audio_circuit}) sử dụng IC khuếch đại thuật toán MAX4466 làm trung tâm. Mạch được bổ sung các khối chức năng gồm:
+
+\begin{figure}[ht]
+   \centering
+   \includegraphics[width=\textwidth]{mach_thu_am.png}
+   \caption{Sơ đồ nguyên lý mạch thu âm và tiền khuếch đại}
+   \label{fig:audio_circuit}
+\end{figure}
+
+\subsubsection{Khối lọc nhiễu nguồn và bảo vệ EMI}
+Để đảm bảo tín hiệu âm thanh không bị lẫn nhiễu từ các linh kiện kỹ thuật số (như ESP32) và nhiễu môi trường, hệ thống sử dụng các linh kiện lọc cao tần:
+\begin{itemize}
+    \item L2, L3: Đây là các Ferrite Bead đặt trên đường nguồn \qty{3,3}{V} và đường mass (GND). Chúng đóng vai trò chặn nhiễu điện từ tần số cao, ngăn không cho các xung nhiễu từ bộ nguồn xung hoặc vi điều khiển xâm nhập vào tầng analog nhạy cảm.
+    \item C10 (\qty{10}{\micro\farad}): Tụ điện phân cực lớn giúp ổn định điện áp nguồn, lọc các dao động điện áp thấp (ripple).
+\end{itemize}
+
+\subsubsection{Khối phân cực Micro và phối hợp trở kháng}
+Microphone tụ điện cần được cấp nguồn DC để hoạt động:
+\begin{itemize}
+    \item Mạch lọc RC (R7, C9): R7 (\qty{1}{k\ohm}) và C9 (\qty{100}{nF}) tạo thành bộ lọc thông thấp cho nguồn cấp micro.
+    \item R6 (\qty{1}{k\ohm}): Điện trở tải tạo dòng phân cực cho FET bên trong micro.
+    \item C8 (\qty{10}{nF}): Tụ liên lạc (Coupling capacitor) đóng vai trò chặn dòng DC từ micro, chỉ cho tín hiệu âm thanh (AC) đi vào chân đầu vào không đảo (IN+) của Op-amp.
+\end{itemize}
+
+\subsubsection{Thiết kế điểm ảo và phân cực đầu vào}
+Do MAX4466 hoạt động với nguồn đơn (\qty{3,3}{V}), tín hiệu âm thanh xoay chiều cần được đưa lên mức điện áp trung gian để không bị méo dạng:
+\begin{itemize}
+    \item Cầu phân áp (R11, R10): Hai điện trở \qty{100}{k\ohm} tạo ra một mức điện áp tham chiếu $V_{ref} = V_{CC}/2 \approx \qty{1,65}{V}$ tại chân IN+. Đây là "mức không ảo" cho phép tín hiệu âm thanh dao động đối xứng quanh nó trong dải từ \qty{0}{V} đến \qty{3,3}{V}.
+\end{itemize}
+
+\subsubsection{Khối khuếch đại và lọc thông dải chủ động}
+Mạch được cấu hình theo kiểu khuếch đại không đảo với các tính năng lọc tín hiệu:
+\begin{itemize}
+    \item Hệ số khuếch đại: Được quyết định bởi biến trở phản hồi R12 (\qty{100}{k\ohm}) và điện trở R8 (\qty{1}{k\ohm}). Người dùng có thể xoay R12 để điều chỉnh độ nhạy thu âm phù hợp với khoảng cách nguồn âm.
+    \item Lọc thông cao: Tụ C7 (\qty{10}{\micro\farad}) nối tiếp với R8 ngăn dòng DC đi qua nhánh phản hồi. Điều này giúp Op-amp giữ nguyên mức offset \qty{1,65}{V} ở đầu ra mà không bị khuếch đại sai lệch DC.
+    \item Lọc thông thấp (Low-pass): Tụ C11 (\qty{100}{pF}) mắc song song với mạch phản hồi giúp cắt bỏ các nhiễu rít tần số cao nằm ngoài dải nghe thấy của con người.
+\end{itemize}
+
+\subsection{Vi xử lí}
+\begin{itemize}
+    \item Hệ thống sử dụng module ESP32-S3-WROOM-1-N16R8. 
+    \item Chân EN được kết nối với mạch RC (điện trở pull-up \qty{10}{k\ohm} và tụ lọc \qty{100}{nF}) theo khuyến nghị của Espressif, đảm bảo điện áp nguồn cung cấp ổn định trước khi vi điều khiển khởi động, tránh hiện tượng Reset không mong muốn.
+\end{itemize}
+
+\begin{figure}[ht]
+   \centering
+   \includegraphics[width=0.7\textwidth]{mach_mcu.png}
+   \caption{Sơ đồ kết nối vi xử lí ESP32-S3}
+   \label{fig:mcu_circuit}
+\end{figure}
+
+\subsection{Mạch giao tiếp RS485}
+\begin{itemize}
+    \item IC MAX3485 được cấu hình theo chế độ Bán song công (Half-duplex). Chân DE (Driver Enable) và $\overline{\text{RE}}$ (Receiver Enable) được nối chung để điều khiển hướng dữ liệu bằng một chân GPIO duy nhất của vi điều khiển.
+    \item Điện trở kết thúc (termination resistor) \qty{120}{\ohm} được gắn song song với bus tại đầu connector, phù hợp với trở kháng đặc tính của cáp xoắn đôi, giúp triệt tiêu phản xạ tín hiệu trên đường truyền dài.
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    % \includegraphics[width=0.6\textwidth]{mach_rs485.png}
+    \caption{Sơ đồ nguyên lý mạch giao tiếp RS485}
+    \label{fig:rs485_circuit}
+\end{figure}
+
+\subsection{Mạch nạp USB Type-C}
+\begin{itemize}
+    \item Cổng kết nối USB Type-C được tích hợp với hai điện trở \qty{5,1}{k\ohm} trên chân CC1 và CC2 để nhận diện nguồn \qty{5}{V} theo chuẩn USB Power Delivery.
+    \item Các chân D+/D– của USB được kết nối trực tiếp tới hai chân GPIO chuyên dụng của ESP32-S3, cho phép nạp firmware và gỡ lỗi trực tiếp mà không cần IC chuyển đổi USB-to-UART rời.
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    % \includegraphics[width=0.6\textwidth]{mach_usb.png}
+    \caption{Sơ đồ nguyên lý giao tiếp USB Type-C}
+    \label{fig:usb_circuit}
+\end{figure}
+
+
+
+\section{Thiết kế phần mềm}
+(Nội dung phần này sẽ được trình bày về cấu trúc chương trình trên ESP32 và phần mềm tiếp nhận dữ liệu trên máy tính).
 
 
 \printbibliography[title={Tài liệu tham khảo}]

@@ -13,3 +13,19 @@
 \contentsline {section}{\numberline {2.3}Giao thức truyền thông công nghiệp RS485}{9}{}%
 \contentsline {subsection}{\numberline {2.3.1}Cơ chế truyền tín hiệu vi sai}{9}{}%
 \contentsline {subsection}{\numberline {2.3.2}Khả năng chống nhiễu chế độ chung}{9}{}%
+\contentsline {chapter}{\numberline {3}Phân tích yêu cầu và thiết kế hệ thống}{10}{}%
+\contentsline {section}{\numberline {3.1}Yêu cầu hệ thống}{10}{}%
+\contentsline {subsection}{\numberline {3.1.1}Yêu cầu chức năng}{10}{}%
+\contentsline {subsection}{\numberline {3.1.2}Yêu cầu phi chức năng}{10}{}%
+\contentsline {section}{\numberline {3.2}Kiến trúc hệ thống}{11}{}%
+\contentsline {section}{\numberline {3.3}Thiết kế phần cứng}{11}{}%
+\contentsline {subsection}{\numberline {3.3.1}Mạch nguồn}{11}{}%
+\contentsline {subsection}{\numberline {3.3.2}Mạch thu âm}{12}{}%
+\contentsline {subsubsection}{Khối lọc nhiễu nguồn và bảo vệ EMI}{12}{}%
+\contentsline {subsubsection}{Khối phân cực Micro và phối hợp trở kháng}{13}{}%
+\contentsline {subsubsection}{Thiết kế điểm ảo và phân cực đầu vào}{13}{}%
+\contentsline {subsubsection}{Khối khuếch đại và lọc thông dải chủ động}{14}{}%
+\contentsline {subsection}{\numberline {3.3.3}Vi xử lí}{14}{}%
+\contentsline {subsection}{\numberline {3.3.4}Mạch giao tiếp RS485}{15}{}%
+\contentsline {subsection}{\numberline {3.3.5}Mạch nạp USB Type-C}{15}{}%
+\contentsline {section}{\numberline {3.4}Thiết kế phần mềm}{15}{}%

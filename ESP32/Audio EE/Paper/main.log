@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (MiKTeX 26.2) (preloaded format=xelatex 2026.4.12)  22 MAY 2026 00:18
+This is XeTeX, Version 3.141592653-2.6-0.999998 (MiKTeX 26.2) (preloaded format=xelatex 2026.4.12)  22 MAY 2026 11:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -789,6 +789,14 @@ File: pgflibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 z/libraries\tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )
+(C:\Users\buinh\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowinset=\dimen270
+\pgfarrowlength=\dimen271
+\pgfarrowwidth=\dimen272
+\pgfarrowlinewidth=\dimen273
+)
 (C:\Users\buinh\AppData\Local\Programs\MiKTeX\tex/latex/siunitx\siunitx.sty
 Package: siunitx 2026-04-15 v3.5.4 A comprehensive (SI) units package
 \l__siunitx_number_uncert_offset_int=\count448
@@ -815,30 +823,30 @@ Package: amstext 2024/11/17 v2.01 AMS text
 (C:\Users\buinh\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks31
-\ex@=\dimen270
+\ex@=\dimen274
 ))
 \l__siunitx_table_tmp_box=\box64
-\l__siunitx_table_tmp_dim=\dimen271
-\l__siunitx_table_column_width_dim=\dimen272
+\l__siunitx_table_tmp_dim=\dimen275
+\l__siunitx_table_column_width_dim=\dimen276
 \l__siunitx_table_integer_box=\box65
 \l__siunitx_table_decimal_box=\box66
 \l__siunitx_table_uncert_box=\box67
 \l__siunitx_table_before_box=\box68
 \l__siunitx_table_after_box=\box69
-\l__siunitx_table_before_dim=\dimen273
-\l__siunitx_table_carry_dim=\dimen274
+\l__siunitx_table_before_dim=\dimen277
+\l__siunitx_table_carry_dim=\dimen278
 \l__siunitx_unit_tmp_int=\count460
 \l__siunitx_unit_position_int=\count461
 \l__siunitx_unit_total_int=\count462
-\l__siunitx_sexagesimal_tmp_dim=\dimen275
+\l__siunitx_sexagesimal_tmp_dim=\dimen279
 \l__siunitx_sexagesimal_marker_box=\box70
 \l__siunitx_sexagesimal_unit_box=\box71
 
 (C:\Users\buinh\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
-\col@sep=\dimen276
+\col@sep=\dimen280
 \ar@mcellbox=\box72
-\extrarowheight=\dimen277
+\extrarowheight=\dimen281
 \NC@list=\toks32
 \extratabsurround=\skip73
 \backup@length=\skip74
@@ -853,6 +861,10 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 (main.aux
 Package babel Info: 'vietnamese' activates 'vietnamese' shorthands.
 (babel)             Reported on input line 6.
+
+
+LaTeX Warning: Label `fig:power_circuit' multiply defined.
+
 )
 \openout1 = `main.aux'.
 
@@ -979,8 +991,9 @@ Package biblatex Info: Automatic encoding selection.
 \openout3 = `main.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'main.bbl' found.
- (main.bbl)
+Package biblatex Info: ... file 'main.bbl' not found.
+
+No file main.bbl.
 Package biblatex Info: Reference section=0 on input line 45.
 Package biblatex Info: Reference segment=0 on input line 45.
 Package translations Info: no dictionary file `translations-basic-dictionary-vi
@@ -989,7 +1002,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 46.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 46.
- [1
+[1
 
 ] [1] (main.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -1018,6 +1031,16 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 ]
 Chương 1.
+
+LaTeX Warning: Citation 'Li2025' on page 4 undefined on input line 60.
+
+
+LaTeX Warning: Citation 'Whitlock2005' on page 4 undefined on input line 62.
+
+
+LaTeX Warning: Citation 'tao2026research' on page 4 undefined on input line 64.
+
+
 [4
 
 ] [5]
@@ -1027,33 +1050,81 @@ Chương 2.
 ]
 File: imgs/CZN-15E.jpg Graphic file (type bmp)
 <imgs/CZN-15E.jpg>
- [7]
-File: imgs/ESP32-S3.jpg Graphic file (type bmp)
-<imgs/ESP32-S3.jpg>
- [8] [9]
-Overfull \hbox (0.61127pt too wide) in paragraph at lines 269--269
-[]\TU/lmr/m/n/12 Espressif Systems. \TU/lmr/m/it/12 ESP32-S3 Series Datasheet\T
-U/lmr/m/n/12 . Version 2.2. Espressif Systems (Shang-
+
+
+LaTeX Warning: Citation 'czn15e_datasheet' on page 7 undefined on input line 16
+7.
+
+
+Overfull \hbox (43.27197pt too wide) in paragraph at lines 167--168
+[]\TU/lmr/m/n/12 Các đặc tính kỹ thuật chi tiết của cảm biến được tổng hợp tron
+g Bảng 2.1[][[]]: 
  []
 
+
+LaTeX Warning: Citation 'max4466_datasheet' on page 7 undefined on input line 1
+91.
+
+
+LaTeX Warning: Citation 'esp32s3_datasheet' on page 7 undefined on input line 2
+17.
+
+[7]
+File: imgs/ESP32-S3.jpg Graphic file (type bmp)
+<imgs/ESP32-S3.jpg>
+ [8]
+
+LaTeX Warning: Citation 'tao2026research' on page 9 undefined on input line 240
+.
+
+[9]
+Chương 3.
 [10
 
-] (main.aux)
+]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 321.
+File: imgs/mach_nguon.png Graphic file (type bmp)
+<imgs/mach_nguon.png>
+File: imgs/mach_nguon_3.3V.png Graphic file (type bmp)
+<imgs/mach_nguon_3.3V.png>
+File: imgs/mach_thu_am.png Graphic file (type bmp)
+<imgs/mach_thu_am.png>
+ [11] [12] [13]
+File: imgs/mach_mcu.png Graphic file (type bmp)
+<imgs/mach_mcu.png>
+ [14]
+
+LaTeX Warning: Empty bibliography on input line 470.
+
+[15] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                main
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 28717 strings out of 402983
- 659459 string characters out of 5448482
- 1518457 words of memory out of 5000000
- 57098 multiletter control sequences out of 15000+600000
+ 29132 strings out of 402983
+ 669254 string characters out of 5448482
+ 1530710 words of memory out of 5000000
+ 57506 multiletter control sequences out of 15000+600000
  631498 words of font info for 68 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  102i,13n,107p,755b,4933s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (12 pages).
+Output written on main.pdf (17 pages).
