@@ -372,14 +372,14 @@ Hệ thống sử dụng cấu trúc nguồn hai tầng để đảm bảo độ
 \begin{figure}[ht]
    \centering
    \includegraphics[width=\textwidth]{mach_nguon.png}
-   \caption{Sơ đồ nguyên lý mạch nguồn hạ áp từ \qty{9}{V} xuống \qty{5}{V}}
+   \caption{Sơ đồ mạch nguồn hạ áp từ \qty{9}{V} xuống \qty{5}{V}}
    \label{fig:power_circuit}
 \end{figure}
 
 \begin{figure}[ht]
    \centering
    \includegraphics[width=\textwidth]{mach_nguon_3.3V.png}
-   \caption{Sơ đồ nguyên lý mạch nguồn hạ áp từ \qty{5}{V} xuống \qty{3,3}{V}}
+   \caption{Sơ đồ mạch nguồn hạ áp từ \qty{5}{V} xuống \qty{3,3}{V}}
    \label{fig:power_circuit}
 \end{figure}
 
@@ -389,7 +389,7 @@ Sơ đồ nguyên lý mạch thu âm (Hình \ref{fig:audio_circuit}) sử dụng
 \begin{figure}[ht]
    \centering
    \includegraphics[width=\textwidth]{mach_thu_am.png}
-   \caption{Sơ đồ nguyên lý mạch thu âm và tiền khuếch đại}
+   \caption{Sơ đồ mạch thu âm và tiền khuếch đại}
    \label{fig:audio_circuit}
 \end{figure}
 
@@ -437,34 +437,62 @@ Mạch được cấu hình theo kiểu khuếch đại không đảo với các
 
 \subsection{Mạch giao tiếp RS485}
 \begin{itemize}
-    \item IC MAX3485 được cấu hình theo chế độ Bán song công (Half-duplex). Chân DE (Driver Enable) và $\overline{\text{RE}}$ (Receiver Enable) được nối chung để điều khiển hướng dữ liệu bằng một chân GPIO duy nhất của vi điều khiển.
-    \item Điện trở kết thúc (termination resistor) \qty{120}{\ohm} được gắn song song với bus tại đầu connector, phù hợp với trở kháng đặc tính của cáp xoắn đôi, giúp triệt tiêu phản xạ tín hiệu trên đường truyền dài.
+   \item IC MAX3485 được cấu hình theo chế độ Bán song công (Half-duplex). Chân DE (Driver Enable) và $\overline{\text{RE}}$ (Receiver Enable) được nối chung để điều khiển hướng dữ liệu bằng một chân GPIO duy nhất của vi điều khiển.
+   \item Điện trở kết thúc (termination resistor) \qty{120}{\ohm} được gắn song song với bus tại đầu connector, phù hợp với trở kháng đặc tính của cáp xoắn đôi, giúp triệt tiêu phản xạ tín hiệu trên đường truyền dài.
 \end{itemize}
 
 \begin{figure}[ht]
-    \centering
-    % \includegraphics[width=0.6\textwidth]{mach_rs485.png}
-    \caption{Sơ đồ nguyên lý mạch giao tiếp RS485}
-    \label{fig:rs485_circuit}
+   \centering
+   \includegraphics[width=\textwidth]{mach_rs485.png}
+   \caption{Sơ đồ mạch giao tiếp RS485}
+   \label{fig:rs485_circuit}
 \end{figure}
 
 \subsection{Mạch nạp USB Type-C}
 \begin{itemize}
-    \item Cổng kết nối USB Type-C được tích hợp với hai điện trở \qty{5,1}{k\ohm} trên chân CC1 và CC2 để nhận diện nguồn \qty{5}{V} theo chuẩn USB Power Delivery.
-    \item Các chân D+/D– của USB được kết nối trực tiếp tới hai chân GPIO chuyên dụng của ESP32-S3, cho phép nạp firmware và gỡ lỗi trực tiếp mà không cần IC chuyển đổi USB-to-UART rời.
+   \item Cổng kết nối USB Type-C được tích hợp với hai điện trở \qty{5,1}{k\ohm} trên chân CC1 và CC2 để nhận diện nguồn \qty{5}{V} theo chuẩn USB Power Delivery.
+   \item Các chân D+/D– của USB được kết nối trực tiếp tới hai chân GPIO chuyên dụng của ESP32-S3, cho phép nạp firmware và gỡ lỗi trực tiếp mà không cần IC chuyển đổi USB-to-UART rời.
 \end{itemize}
 
 \begin{figure}[ht]
-    \centering
-    % \includegraphics[width=0.6\textwidth]{mach_usb.png}
-    \caption{Sơ đồ nguyên lý giao tiếp USB Type-C}
-    \label{fig:usb_circuit}
+   \centering
+   \includegraphics[width=0.6\textwidth]{mach_usb.png}
+   \caption{Sơ đồ mạch giao tiếp USB Type-C}
+   \label{fig:usb_circuit}
 \end{figure}
 
 
-
 \section{Thiết kế phần mềm}
-(Nội dung phần này sẽ được trình bày về cấu trúc chương trình trên ESP32 và phần mềm tiếp nhận dữ liệu trên máy tính).
+
+Phần mềm của hệ thống được chia làm hai thành phần chính: phần mềm nhúng chạy trên module ESP32-S3 đảm nhiệm thu tín hiệu âm thanh, số hóa và truyền qua giao tiếp RS485; và phần mềm phía máy tính đảm nhiệm nhận dữ liệu, hiển thị dạng sóng thời gian thực, xử lý nhiễu, lưu trữ và phát lại.
+
+\subsection{Phần mềm nhúng trên ESP32}
+
+Các điểm chính của phần mềm nhúng:
+\begin{itemize}
+  \item Sử dụng cổng UART thứ hai (Serial2) để giao tiếp RS485 ở tốc độ cao: \texttt{460800} bps.
+  \item Lấy mẫu ADC với độ phân giải 12-bit, sau đó quy đổi xuống 8-bit để gửi dưới dạng một byte mỗi mẫu.
+  \item Tần số lấy mẫu thực thi trong mã: \verb|INTERVAL = 125| micro giây, tương đương tốc độ lấy mẫu xấp xỉ $\displaystyle\frac{1}{125\times 10^{-6}} = 8000\,$Hz.
+  \item Chế độ RS485: half-duplex; chân điều khiển hướng DE/RE được điều khiển bởi GPIO-4 để chọn chiều truyền/nhận.
+  \item Dữ liệu trên bus RS485 được truyền tuần tự dưới dạng các byte mẫu 8-bit. Thiết bị nhận đọc luồng byte liên tục.
+\end{itemize}
+
+\subsection{Phần mềm trên máy tính}
+% Mã nguồn tham khảo: \verb|m16kHz_input.py| và \verb|dashboard.py|.
+
+Chức năng chính của phần mềm máy tính:
+\begin{itemize}
+  \item Kết nối và quản lý cổng COM (liệt kê và chọn cổng thực tế).
+  \item Xả bộ nhớ đệm UART trước khi bắt đầu ghi để loại trừ dữ liệu rác từ phần cứng. %(hàm \verb|flush_serial_input|).
+  \item Ghi nhận luồng byte thô vào bộ nhớ đệm, ước lượng tần số lấy mẫu thực tế bằng cách lấy \verb|len(buffer)/duration|.
+  \item Hiển thị dạng sóng thời gian thực bằng \texttt{matplotlib} trong giao diện Tkinter và cho phép phát lại âm thanh.
+  \item Xử lý số: lọc thông thấp với tần số cắt bằng \qty{9000}{Hz} và khử nhiễu bằng phương pháp trừ phổ đơn giản.
+  \item Lưu dưới dạng file WAV 8-bit mono.
+\end{itemize}
+
+\chapter{Triển khai và đánh giá}
+
+\section{Cài đặt mạch}
 
 
 \printbibliography[title={Tài liệu tham khảo}]

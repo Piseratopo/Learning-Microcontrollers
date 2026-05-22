@@ -29,3 +29,7 @@
 \contentsline {subsection}{\numberline {3.3.4}Mạch giao tiếp RS485}{15}{}%
 \contentsline {subsection}{\numberline {3.3.5}Mạch nạp USB Type-C}{15}{}%
 \contentsline {section}{\numberline {3.4}Thiết kế phần mềm}{15}{}%
+\contentsline {subsection}{\numberline {3.4.1}Phần mềm nhúng trên ESP32}{15}{}%
+\contentsline {subsection}{\numberline {3.4.2}Phần mềm trên máy tính}{16}{}%
+\contentsline {chapter}{\numberline {4}Triển khai và đánh giá}{17}{}%
+\contentsline {section}{\numberline {4.1}Cài đặt mạch}{17}{}%
