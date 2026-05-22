@@ -1,7 +1,9 @@
 import serial
 import wave
 import time
+import csv
 import numpy as np
+from datetime import datetime
 
 try:
     import msvcrt  # Windows-specific for detecting keypress
@@ -14,6 +16,8 @@ BAUD = 460800
 FLUSH_DURATION = 2
 NOISE_SAMPLE_DURATION = 2
 FILE_NAME = "manual_recording_cleaned.wav"
+METADATA_FILE = "recording_metadata.csv"
+DATA_FILE = "recording_data.csv"
 
 
 def apply_noise_reduction(signal, noise):
@@ -88,6 +92,23 @@ def save_wav(filename, data, sample_rate):
         wav_file.writeframes(data.tobytes())
 
 
+def save_metadata_to_csv(csv_filename, metadata):
+    """Save recording metadata to a CSV file."""
+    with open(csv_filename, "w", newline="") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=metadata.keys())
+        writer.writeheader()
+        writer.writerow(metadata)
+
+
+def save_data_to_csv(csv_filename, data, label=""):
+    """Save raw audio data to a CSV file."""
+    with open(csv_filename, "w", newline="") as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(["Index", "Sample_Value", "Label"])
+        for i, sample in enumerate(data):
+            writer.writerow([i, int(sample), label])
+
+
 def record_audio():
     try:
         ser = serial.Serial(PORT, BAUD, timeout=0.1)
@@ -98,10 +119,7 @@ def record_audio():
         print(f"1. Flushing hardware noise ({FLUSH_DURATION}s)...")
         flush_serial_input(ser, FLUSH_DURATION)
 
-        print(f"2. Sampling BACKGROUND NOISE ({NOISE_SAMPLE_DURATION}s)... BE QUIET!")
-        noise_data = sample_noise(ser, NOISE_SAMPLE_DURATION)
-
-        print("3. RECORDING NOW... Speak now!")
+        print("2. RECORDING NOW... Speak now!")
         print(">> Press [ENTER] to STOP recording.")
 
         while msvcrt and msvcrt.kbhit():
@@ -116,13 +134,29 @@ def record_audio():
         print(f"\nStopped. Captured {actual_count} samples in {actual_duration:.2f}s.")
         print(f"Effective Sample Rate: {captured_sample_rate} Hz")
 
-        print("4. Cleaning audio...")
+        print("3. Processing audio...")
         signal_data = np.frombuffer(rec_buffer, dtype=np.uint8)
-        cleaned_data = apply_noise_reduction(signal_data, noise_data)
 
-        save_wav(FILE_NAME, cleaned_data, captured_sample_rate)
+        save_wav(FILE_NAME, signal_data, captured_sample_rate)
+
+        # Prepare and save metadata
+        metadata = {
+            "Timestamp": datetime.now().isoformat(),
+            "Sample_Rate_Hz": captured_sample_rate,
+            "Duration_Seconds": round(actual_duration, 2),
+            "Total_Samples": actual_count,
+            "Signal_Mean": round(float(np.mean(signal_data)), 2),
+            "Signal_Std": round(float(np.std(signal_data)), 2),
+            "WAV_File": FILE_NAME,
+        }
+        save_metadata_to_csv(METADATA_FILE, metadata)
+
+        # Save detailed data
+        save_data_to_csv(DATA_FILE, signal_data, label="raw_audio")
 
         print(f"Success! Saved as {FILE_NAME}")
+        print(f"Metadata saved to {METADATA_FILE}")
+        print(f"Data saved to {DATA_FILE}")
 
     except Exception as e:
         print(f"Error: {e}")

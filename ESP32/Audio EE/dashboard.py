@@ -11,16 +11,17 @@ from ctypes import windll
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from m16kHz_input import (
-    apply_noise_reduction,
     flush_serial_input,
-    sample_noise,
     save_wav,
+    save_metadata_to_csv,
+    save_data_to_csv,
 )
 
 BAUD = 460800
 FLUSH_DURATION = 2
-NOISE_SAMPLE_DURATION = 2
 FILE_NAME = "manual_recording_cleaned.wav"
+METADATA_FILE = "recording_metadata.csv"
+DATA_FILE = "recording_data.csv"
 WAVEFORM_WINDOW = 6000  # samples shown in real-time view
 
 
@@ -233,18 +234,11 @@ class AudioRecorderApp:
             self.ser = serial.Serial(port, BAUD, timeout=0.1)
 
             # 1. Flush
-            self._set_status(f"[1/3] Đang xả nhiễu phần cứng ({FLUSH_DURATION}s)...")
+            self._set_status(f"[1/2] Đang xả nhiễu phần cứng ({FLUSH_DURATION}s)...")
             flush_serial_input(self.ser, FLUSH_DURATION)
 
-            # 2. Noise sample
-            self._set_status(
-                f"[2/3] Đang lấy mẫu tiếng ồn nền ({NOISE_SAMPLE_DURATION}s) — giữ im lặng!"
-            )
-            noise_data = sample_noise(self.ser, NOISE_SAMPLE_DURATION)
-            self.noise_buffer = noise_data.tobytes()
-
-            # 3. Record
-            self._set_status("[3/3] Đang ghi âm... Nhấn  ■ Dừng  khi xong.")
+            # 2. Record
+            self._set_status("[2/2] Đang ghi âm... Nhấn  ■ Dừng  khi xong.")
             self.recording = True
             self.start_time = time.time()
             self.root.after(0, lambda: self.btn_stop.config(state=tk.NORMAL))
@@ -270,16 +264,29 @@ class AudioRecorderApp:
 
     def _process(self):
         try:
+            from datetime import datetime
+
             duration = time.time() - self.start_time
             n = len(self.rec_buffer)
             self.sample_rate = max(1, int(n / duration))
 
-            noise = np.frombuffer(self.noise_buffer, dtype=np.uint8)
             signal = np.frombuffer(self.rec_buffer, dtype=np.uint8)
-            cleaned = apply_noise_reduction(signal, noise)
-            save_wav(FILE_NAME, cleaned, self.sample_rate)
+            save_wav(FILE_NAME, signal, self.sample_rate)
 
-            self.root.after(0, lambda: self._on_saved(n, duration, cleaned))
+            # Save metadata
+            metadata = {
+                "Timestamp": datetime.now().isoformat(),
+                "Sample_Rate_Hz": self.sample_rate,
+                "Duration_Seconds": round(duration, 2),
+                "Total_Samples": n,
+                "Signal_Mean": round(float(np.mean(signal)), 2),
+                "Signal_Std": round(float(np.std(signal)), 2),
+                "WAV_File": FILE_NAME,
+            }
+            save_metadata_to_csv(METADATA_FILE, metadata)
+            save_data_to_csv(DATA_FILE, signal, label="raw_audio")
+
+            self.root.after(0, lambda: self._on_saved(n, duration, signal))
         except Exception as exc:
             self.root.after(0, lambda: messagebox.showerror("Lỗi xử lý", str(exc)))
             self.root.after(0, self._reset_ui)
