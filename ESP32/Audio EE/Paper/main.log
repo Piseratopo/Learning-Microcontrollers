@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.5.22)  22 MAY 2026 14:37
+=======
+This is XeTeX, Version 3.141592653-2.6-0.999998 (MiKTeX 26.2) (preloaded format=xelatex 2026.4.12)  22 MAY 2026 11:50
+>>>>>>> Stashed changes
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -12,8 +16,13 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
 (C:\Users\Blanko\AppData\Local\Programs\MiKTeX\tex/latex/base\report.cls
 Document Class: report 2025/01/22 v1.4n Standard LaTeX document class
+<<<<<<< Updated upstream
 (C:\Users\Blanko\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
 File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+=======
+(C:\Users\buinh\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
+File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+>>>>>>> Stashed changes
 )
 \c@part=\count271
 \c@chapter=\count272
@@ -977,12 +986,12 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 * \topmargin=-38.1381pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=12.0pt
+* \topskip=10.0pt
 * \footskip=30.0pt
-* \marginparwidth=35.0pt
-* \marginparsep=10.0pt
+* \marginparwidth=57.0pt
+* \marginparsep=11.0pt
 * \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1013,18 +1022,23 @@ Package biblatex Info: Reference segment=0 on input line 45.
 Package translations Info: no dictionary file `translations-basic-dictionary-vi
 etnamese.trsl' found. on input line 45.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 46.
+(Font)              <12> on input line 46.
 LaTeX Font Info:    External font `cmex10' loaded for size
+<<<<<<< Updated upstream
 (Font)              <7> on input line 46.
  [1
+=======
+(Font)              <8> on input line 46.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 46.
+[1
+>>>>>>> Stashed changes
 
 ] [1] (main.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 3.
+(Font)              <7> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 3.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 3.
+(Font)              <5> on input line 3.
 )
 \tf@toc=\write5
 \openout5 = `main.toc'.
@@ -1049,30 +1063,52 @@ Chương 1.
 
 ] [5]
 Chương 2.
-[6
-
-]
 File: imgs/CZN-15E.jpg Graphic file (type bmp)
 <imgs/CZN-15E.jpg>
+<<<<<<< Updated upstream
  [7]
 File: imgs/ESP32-S3.jpg Graphic file (type bmp)
 <imgs/ESP32-S3.jpg>
  [8] [9]
+=======
+
+LaTeX Warning: Citation 'czn15e_datasheet' on page 6 undefined on input line 16
+7.
+
+
+LaTeX Warning: Citation 'max4466_datasheet' on page 6 undefined on input line 1
+91.
+
+[6
+
+]
+
+LaTeX Warning: Citation 'esp32s3_datasheet' on page 7 undefined on input line 2
+17.
+
+File: imgs/ESP32-S3.jpg Graphic file (type bmp)
+<imgs/ESP32-S3.jpg>
+[7]
+
+LaTeX Warning: Citation 'tao2026research' on page 8 undefined on input line 240
+.
+
+[8] [9]
+>>>>>>> Stashed changes
 Chương 3.
 [10
 
 ]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 321.
 File: imgs/mach_nguon.png Graphic file (type bmp)
 <imgs/mach_nguon.png>
 File: imgs/mach_nguon_3.3V.png Graphic file (type bmp)
 <imgs/mach_nguon_3.3V.png>
 File: imgs/mach_thu_am.png Graphic file (type bmp)
 <imgs/mach_thu_am.png>
- [11] [12] [13]
+ [11] [12]
 File: imgs/mach_mcu.png Graphic file (type bmp)
 <imgs/mach_mcu.png>
+<<<<<<< Updated upstream
  [14]
 File: imgs/mach_rs485.png Graphic file (type bmp)
 <imgs/mach_rs485.png>
@@ -1081,6 +1117,9 @@ File: imgs/mach_usb.png Graphic file (type bmp)
  [15] [16]
 Chương 4.
 [17
+=======
+ [13]
+>>>>>>> Stashed changes
 
 ]
 Overfull \hbox (0.61127pt too wide) in paragraph at lines 498--498
@@ -1088,9 +1127,13 @@ Overfull \hbox (0.61127pt too wide) in paragraph at lines 498--498
 U/lmr/m/n/12 . Version 2.2. Espressif Systems (Shang-
  []
 
+<<<<<<< Updated upstream
 [18
 
 ] (main.aux)
+=======
+[14] (main.aux)
+>>>>>>> Stashed changes
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -1104,12 +1147,24 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
+<<<<<<< Updated upstream
  29228 strings out of 402987
  672066 string characters out of 5448317
  1530869 words of memory out of 5000000
  57589 multiletter control sequences out of 15000+600000
  631514 words of font info for 70 fonts, out of 8000000 for 9000
+=======
+ 29129 strings out of 402983
+ 669231 string characters out of 5448482
+ 1532657 words of memory out of 5000000
+ 57500 multiletter control sequences out of 15000+600000
+ 630593 words of font info for 66 fonts, out of 8000000 for 9000
+>>>>>>> Stashed changes
  1348 hyphenation exceptions out of 8191
  102i,13n,107p,778b,4933s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
+<<<<<<< Updated upstream
 Output written on main.pdf (20 pages).
+=======
+Output written on main.pdf (16 pages).
+>>>>>>> Stashed changes

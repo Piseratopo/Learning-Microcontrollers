@@ -2,22 +2,22 @@
 \contentsline {chapter}{\numberline {1}Giới thiệu}{4}{}%
 \contentsline {section}{\numberline {1.1}Mục tiêu và phạm vi nghiên cứu}{4}{}%
 \contentsline {subsection}{\numberline {1.1.1}Mục tiêu nghiên cứu}{4}{}%
-\contentsline {subsection}{\numberline {1.1.2}Phạm vi nghiên cứu}{5}{}%
+\contentsline {subsection}{\numberline {1.1.2}Phạm vi nghiên cứu}{4}{}%
 \contentsline {section}{\numberline {1.2}Phương pháp thực hiện}{5}{}%
 \contentsline {chapter}{\numberline {2}Cơ sở lý thuyết}{6}{}%
 \contentsline {section}{\numberline {2.1}Cấu trúc chung của một thiết bị đo}{6}{}%
-\contentsline {section}{\numberline {2.2}Các thành phần thu và xử lý âm thanh}{7}{}%
-\contentsline {subsection}{\numberline {2.2.1}Cảm biến thu âm thanh}{7}{}%
+\contentsline {section}{\numberline {2.2}Các thành phần thu và xử lý âm thanh}{6}{}%
+\contentsline {subsection}{\numberline {2.2.1}Cảm biến thu âm thanh}{6}{}%
 \contentsline {subsection}{\numberline {2.2.2}Mạch tiền khuếch đại âm thanh (MAX4466)}{7}{}%
-\contentsline {subsection}{\numberline {2.2.3}Vi xử lý ESP32-S3}{8}{}%
-\contentsline {section}{\numberline {2.3}Giao thức truyền thông công nghiệp RS485}{9}{}%
-\contentsline {subsection}{\numberline {2.3.1}Cơ chế truyền tín hiệu vi sai}{9}{}%
+\contentsline {subsection}{\numberline {2.2.3}Vi xử lý ESP32-S3}{7}{}%
+\contentsline {section}{\numberline {2.3}Giao thức truyền thông công nghiệp RS485}{8}{}%
+\contentsline {subsection}{\numberline {2.3.1}Cơ chế truyền tín hiệu vi sai}{8}{}%
 \contentsline {subsection}{\numberline {2.3.2}Khả năng chống nhiễu chế độ chung}{9}{}%
 \contentsline {chapter}{\numberline {3}Phân tích yêu cầu và thiết kế hệ thống}{10}{}%
 \contentsline {section}{\numberline {3.1}Yêu cầu hệ thống}{10}{}%
 \contentsline {subsection}{\numberline {3.1.1}Yêu cầu chức năng}{10}{}%
 \contentsline {subsection}{\numberline {3.1.2}Yêu cầu phi chức năng}{10}{}%
-\contentsline {section}{\numberline {3.2}Kiến trúc hệ thống}{11}{}%
+\contentsline {section}{\numberline {3.2}Kiến trúc hệ thống}{10}{}%
 \contentsline {section}{\numberline {3.3}Thiết kế phần cứng}{11}{}%
 \contentsline {subsection}{\numberline {3.3.1}Mạch nguồn}{11}{}%
 \contentsline {subsection}{\numberline {3.3.2}Mạch thu âm}{12}{}%
@@ -29,7 +29,3 @@
 \contentsline {subsection}{\numberline {3.3.4}Mạch giao tiếp RS485}{15}{}%
 \contentsline {subsection}{\numberline {3.3.5}Mạch nạp USB Type-C}{15}{}%
 \contentsline {section}{\numberline {3.4}Thiết kế phần mềm}{15}{}%
-\contentsline {subsection}{\numberline {3.4.1}Phần mềm nhúng trên ESP32}{15}{}%
-\contentsline {subsection}{\numberline {3.4.2}Phần mềm trên máy tính}{16}{}%
-\contentsline {chapter}{\numberline {4}Triển khai và đánh giá}{17}{}%
-\contentsline {section}{\numberline {4.1}Cài đặt mạch}{17}{}%

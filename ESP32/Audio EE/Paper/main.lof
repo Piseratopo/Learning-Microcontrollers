@@ -10,6 +10,11 @@
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Sơ đồ mạch nguồn hạ áp từ \qty {5}{V} xuống \qty {3,3}{V}}}{12}{}%
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Sơ đồ mạch thu âm và tiền khuếch đại}}{13}{}%
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Sơ đồ kết nối vi xử lí ESP32-S3}}{14}{}%
+<<<<<<< Updated upstream
 \contentsline {figure}{\numberline {3.6}{\ignorespaces Sơ đồ mạch giao tiếp RS485}}{15}{}%
 \contentsline {figure}{\numberline {3.7}{\ignorespaces Sơ đồ mạch giao tiếp USB Type-C}}{16}{}%
 \addvspace {10\p@ }
+=======
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Sơ đồ nguyên lý mạch giao tiếp RS485}}{14}{}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Sơ đồ nguyên lý giao tiếp USB Type-C}}{14}{}%
+>>>>>>> Stashed changes
