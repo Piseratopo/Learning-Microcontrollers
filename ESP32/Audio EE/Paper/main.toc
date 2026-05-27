@@ -20,12 +20,16 @@
 \contentsline {section}{\numberline {3.2}Kiến trúc hệ thống}{10}{}%
 \contentsline {section}{\numberline {3.3}Thiết kế phần cứng}{11}{}%
 \contentsline {subsection}{\numberline {3.3.1}Mạch nguồn}{11}{}%
-\contentsline {subsection}{\numberline {3.3.2}Mạch thu âm}{12}{}%
-\contentsline {subsubsection}{Khối lọc nhiễu nguồn và bảo vệ EMI}{12}{}%
-\contentsline {subsubsection}{Khối phân cực Micro và phối hợp trở kháng}{13}{}%
-\contentsline {subsubsection}{Thiết kế điểm ảo và phân cực đầu vào}{13}{}%
-\contentsline {subsubsection}{Khối khuếch đại và lọc thông dải chủ động}{14}{}%
-\contentsline {subsection}{\numberline {3.3.3}Vi xử lí}{14}{}%
-\contentsline {subsection}{\numberline {3.3.4}Mạch giao tiếp RS485}{15}{}%
-\contentsline {subsection}{\numberline {3.3.5}Mạch nạp USB Type-C}{15}{}%
-\contentsline {section}{\numberline {3.4}Thiết kế phần mềm}{15}{}%
+\contentsline {subsection}{\numberline {3.3.2}Mạch thu âm}{11}{}%
+\contentsline {subsubsection}{Khối lọc nhiễu nguồn và bảo vệ EMI}{11}{}%
+\contentsline {subsubsection}{Khối phân cực Micro và phối hợp trở kháng}{12}{}%
+\contentsline {subsubsection}{Thiết kế điểm ảo và phân cực đầu vào}{12}{}%
+\contentsline {subsubsection}{Khối khuếch đại và lọc thông dải chủ động}{12}{}%
+\contentsline {subsection}{\numberline {3.3.3}Vi xử lí}{13}{}%
+\contentsline {subsection}{\numberline {3.3.4}Mạch giao tiếp RS485}{13}{}%
+\contentsline {subsection}{\numberline {3.3.5}Mạch nạp USB Type-C}{13}{}%
+\contentsline {section}{\numberline {3.4}Thiết kế phần mềm}{13}{}%
+\contentsline {subsection}{\numberline {3.4.1}Phần mềm nhúng trên ESP32}{13}{}%
+\contentsline {subsection}{\numberline {3.4.2}Phần mềm trên máy tính}{14}{}%
+\contentsline {chapter}{\numberline {4}Triển khai và đánh giá}{18}{}%
+\contentsline {section}{\numberline {4.1}Cài đặt mạch}{18}{}%
