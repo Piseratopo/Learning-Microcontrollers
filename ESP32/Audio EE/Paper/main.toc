@@ -10,9 +10,10 @@
 \contentsline {subsection}{\numberline {2.2.1}Cảm biến thu âm thanh}{7}{}%
 \contentsline {subsection}{\numberline {2.2.2}Mạch tiền khuếch đại âm thanh (MAX4466)}{8}{}%
 \contentsline {subsection}{\numberline {2.2.3}Vi xử lý ESP32-S3}{8}{}%
-\contentsline {section}{\numberline {2.3}Giao thức truyền thông công nghiệp RS485}{9}{}%
-\contentsline {subsection}{\numberline {2.3.1}Cơ chế truyền tín hiệu vi sai}{9}{}%
-\contentsline {subsection}{\numberline {2.3.2}Khả năng chống nhiễu chế độ chung}{10}{}%
+\contentsline {section}{\numberline {2.3}Lọc nhiễu phổ bằng biến đổi Fourier nhanh}{9}{}%
+\contentsline {section}{\numberline {2.4}Giao thức truyền thông công nghiệp RS485}{10}{}%
+\contentsline {subsection}{\numberline {2.4.1}Cơ chế truyền tín hiệu vi sai}{10}{}%
+\contentsline {subsection}{\numberline {2.4.2}Khả năng chống nhiễu chế độ chung}{10}{}%
 \contentsline {chapter}{\numberline {3}Phân tích yêu cầu và thiết kế hệ thống}{11}{}%
 \contentsline {section}{\numberline {3.1}Yêu cầu hệ thống}{11}{}%
 \contentsline {subsection}{\numberline {3.1.1}Yêu cầu chức năng}{11}{}%
@@ -34,7 +35,7 @@
 \contentsline {chapter}{\numberline {4}Triển khai và đánh giá}{19}{}%
 \contentsline {section}{\numberline {4.1}Cài đặt mạch}{19}{}%
 \contentsline {section}{\numberline {4.2}Lập trình và cấu hình truyền thông}{19}{}%
-\contentsline {section}{\numberline {4.3}Kết quả đo lường và đánh giá}{19}{}%
+\contentsline {section}{\numberline {4.3}Kết quả đo lường và đánh giá}{20}{}%
 \contentsline {chapter}{\numberline {5}Kết luận và hướng phát triển}{21}{}%
 \contentsline {section}{\numberline {5.1}Kết luận}{21}{}%
 \contentsline {section}{\numberline {5.2}Hướng nghiên cứu tương lai}{21}{}%

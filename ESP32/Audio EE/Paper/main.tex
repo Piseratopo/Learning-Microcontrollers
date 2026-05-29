@@ -263,6 +263,27 @@ Ngoài ra, ESP32-S3 tích hợp đầy đủ các tính năng cần thiết cho 
     \item \textbf{Quản lý năng lượng:} Chip hỗ trợ nhiều chế độ tiết kiệm điện thông minh, phù hợp cho các thiết bị giám sát tại hiện trường vốn cần hoạt động bền bỉ và ổn định.
 \end{itemize}
 
+\section{Lọc nhiễu phổ bằng biến đổi Fourier nhanh}
+
+\ 
+
+Đối với tín hiệu âm thanh số, một bước quan trọng trong xử lý nhiễu là chuyển đổi từ miền thời gian sang miền tần số bằng phép biến đổi Fourier nhanh (FFT). Giả sử chuỗi mẫu $x[n]$ có $N$ điểm, FFT cho ta phổ phức:
+\begin{equation}
+X[k] = \sum_{n=0}^{N-1} x[n] \, e^{-j 2\pi \frac{kn}{N}}, \quad k=0,\ldots,N-1
+\end{equation}
+Trong miền tần số, các thành phần tín hiệu hữu ích và thành phần nhiễu có thể được phân biệt rõ hơn, giúp việc lọc nhiễu trở nên hiệu quả.
+
+Một quy trình lọc nhiễu theo kiểu ``5 lớp FFT'' có thể mô tả bằng các bước sau:
+\begin{enumerate}
+  \item Khảo sát phổ nhiễu nền khi không có âm cần thu, xây dựng mẫu phổ nhiễu.
+  \item Phân tích phổ tín hiệu ghi được và trừ đi phổ nhiễu nền (spectral subtraction).
+  \item Áp dụng mặt nạ tần số (frequency masking) để giữ lại chỉ các dải tần mong muốn, loại bỏ các thành phần nhiễu ngoài dải.
+  \item Làm mượt phổ sau lọc để giảm các dao động đột ngột gây ra hiện tượng ``âm cứng'' hoặc méo.
+  \item Thực hiện biến đổi Fourier ngược (IFFT) để tái tạo lại tín hiệu thời gian đã được lọc.
+\end{enumerate}
+
+Trong ngữ cảnh phần mềm máy tính, mỗi ``lớp'' có thể là một bước xử lý phổ khác nhau hoặc một tầng lọc bổ sung trong miền tần số. Cách tiếp cận này tận dụng ưu điểm của miền tần số để giảm được cả nhiễu nền cố định và nhiễu phổ hẹp, đồng thời vẫn giữ được cấu trúc tín hiệu âm thanh chính.
+
 \section{Giao thức truyền thông công nghiệp RS485}
 
 \ 
@@ -519,6 +540,7 @@ Chức năng chính của phần mềm máy tính:
   \item Ghi nhận luồng byte thô vào bộ nhớ đệm, ước lượng tần số lấy mẫu thực tế bằng cách lấy \verb|len(buffer)/duration|.
   \item Hiển thị dạng sóng thời gian thực bằng \texttt{matplotlib} trong giao diện Tkinter và cho phép phát lại âm thanh.
   \item Xử lý số: lọc thông thấp với tần số cắt bằng \qty{9000}{Hz} và khử nhiễu bằng phương pháp trừ phổ đơn giản.
+  \item Sử dụng lọc phổ qua FFT để tách nhiễu nền và giảm thành phần tần số ngoài dải mong muốn. Giải pháp này có thể được mở rộng thành một chuỗi xử lý nhiều lớp (multi-stage FFT), trong đó mỗi lớp xử lý một loại nhiễu khác nhau trước khi tái tạo lại tín hiệu.
   \item Lưu dưới dạng file WAV 8-bit mono.
 \end{itemize}
 
@@ -526,7 +548,14 @@ Chức năng chính của phần mềm máy tính:
 
 \section{Cài đặt mạch}
 
-Quá trình cài đặt mạch bắt đầu từ việc thực hiện sơ đồ nguyên lý đã thiết kế. Bo mạch được lắp ráp trên PCB một mặt, với phân vùng rõ ràng giữa khối tương tự và khối số để giảm thiểu sự can nhiễu.
+Sau khi hoàn thiện sơ đồ nguyên lý và thiết kế bố cục của các linh kiện, bo mạch đã được chế tạo trên nền mạch in sợi thủy tinh FR4. Bo mạch được lắp ráp trên PCB một mặt, với phân vùng giữa khối tương tự và khối số để giảm thiểu sự can nhiễu.
+
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.6\textwidth]{PCBreal.png}
+   \caption{Phân bố trên mạch PCB thực}
+   \label{fig:real_pcb}
+\end{figure}
 
 \section{Lập trình và cấu hình truyền thông}
 
@@ -558,23 +587,62 @@ Máy tính nhận dữ liệu sử dụng phần mềm Python đơn giản. Các
 
 \section{Kết quả đo lường và đánh giá}
 
-Sau khi hệ thống được lắp và lập trình hoàn chỉnh, quá trình thử nghiệm được thực hiện theo các tiêu chí sau:
+Sau khi hệ thống được lắp và lập trình hoàn chỉnh, quá trình thử nghiệm được tiến hành thực tế nhằm đánh giá khả năng thu thập, xử lý và truyền dẫn dữ liệu âm thanh. Các tiêu chí đánh giá bao gồm: độ trung thực của dạng sóng, hiệu quả của bộ lọc số và tính ổn định của luồng dữ liệu qua giao thức RS485.
+
+Kết quả thu được cụ thể như sau:
 
 \begin{itemize}
-   \item Chất lượng tín hiệu âm thanh: so sánh đầu vào và đầu ra sau khi giải mã bằng tai người và phân tích phổ.
-   \item Độ méo tổng hợp (THD) và tỉ số tín hiệu trên nhiễu (SNR): xác định chất lượng của luồng âm thanh sau khi truyền qua RS485.
+   \item \textbf{Phân tích dạng sóng thời gian thực:} 
+   Dựa trên quan sát từ Hình \ref{fig:raw_waveform}, tín hiệu âm thanh thô thu được từ bộ ADC có biên độ khá thấp, dao động quanh mức offset trung bình 125. Dạng sóng này chứa nhiều nhiễu nền và nhiễu trắng, làm mờ đi các đặc tính tần số quan trọng. 
+   
+   \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.8\textwidth]{chua_loc.jpg}
+      \caption{Dạng sóng thời gian thực của tín hiệu âm thanh thô sau khi số hóa}
+      \label{fig:raw_waveform}
+   \end{figure}
+   
+   \item \textbf{Đánh giá sau khi xử lí nhiễu:} 
+   Kết quả cho thấy bộ lọc dải thông đã triệt tiêu hiệu quả các thành phần nhiễu ở tần số thấp và nhiễu răng cưa ở tần số cao. Qua đó, đã làm cho âm thanh trợ nên mượt hơn, hỗ trợ tốt cho việc truyền tải qua môi trường nhiễu công nghiệp của chuẩn RS485.
+
+   \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.8\textwidth]{da_loc.jpg}
+      \caption{Dạng sóng thời gian thực của tín hiệu âm thanh đã lọc}
+      \label{fig:filtered_waveform}
+   \end{figure}
+   
+   \item \textbf{Tốc độ xử lí của thuật toán:} 
+   Thuật toán xử lí tín hiệu mất nhiều thời gian để thực thi (khoảng 3 giây cho một tệp tin âm thanh 16 giây). Điều này cho thấy hạn chế về tính thời gian thực trong việc thực hiện các thuật toán lọc phức tạp.
 \end{itemize}
 
-Kết quả thu được như sau:
-
-
-
-Đánh giá chung cho thấy hệ thống đạt được mục tiêu chính: thu âm, số hóa và truyền tín hiệu qua RS485 với độ ổn định cao và chất lượng chấp nhận được cho các ứng dụng giám sát âm thanh cơ bản. Một số hạn chế và đề xuất cải tiến:
+Đánh giá chung cho thấy hệ thống đạt được mục tiêu chính: thu âm, số hóa và truyền tín hiệu qua RS485 với độ ổn định cao và chất lượng chấp nhận được cho các ứng dụng giám sát âm thanh cơ bản. 
 
 
 \chapter{Kết luận và hướng phát triển}
 \section{Kết luận}
+Trong quá trình thực hiện đề tài, nhóm đã hoàn thiện thành công một hệ thống thu âm thanh gồm mạch thu âm, bộ khuếch đại MAX4466, vi điều khiển ESP32-S3 và giao tiếp công nghiệp RS485. Hệ thống đã chứng minh được khả năng số hóa tín hiệu âm thanh, truyền dữ liệu qua bus RS485 và thu lại trên máy tính với chất lượng âm thanh phù hợp cho các ứng dụng giám sát.
+
+Phần mềm máy tính đã triển khai được việc đọc dữ liệu UART, xử lý lọc nhiễu cơ bản và lưu file WAV. Việc áp dụng phương pháp FFT để phân tích phổ và trừ nhiễu nền giúp cải thiện đáng kể chất lượng âm thanh đầu ra so với dữ liệu thô.
+
+Những kết quả chính của đề tài bao gồm:
+\begin{itemize}
+    \item Thiết kế mạch thu âm và nguồn ổn định cho ESP32-S3, xử lý tốt nhiễu nguồn và nhiễu EMI.
+    \item Khai thác ưu điểm của RS485 trong môi trường nhiễu công nghiệp với truyền dẫn vi sai và kết thúc đường dây đúng cách.
+    \item Triển khai phần mềm xử lý âm thanh trên máy tính với bước lọc phổ FFT, giúp giảm nhiễu nền và loại bỏ thành phần tần số không mong muốn.
+\end{itemize}
+
+Hệ thống còn một số hạn chế như tần số lấy mẫu thực tế đang ở mức 8 kHz, chưa đạt tối ưu cho mọi ứng dụng, và thuật toán xử lý phần mềm trên máy tính chưa thực sự thời gian thực do việc tính toán FFT còn tiêu tốn thời gian.
+
 \section{Hướng nghiên cứu tương lai}
+Những hướng phát triển tiếp theo có thể tập trung vào:
+\begin{itemize}
+    \item Nâng cao tần số lấy mẫu lên 16 kHz hoặc 32 kHz để cải thiện băng thông âm thanh và độ trung thực của tín hiệu.
+    \item Tích hợp xử lý lọc nhiễu ngay trên ESP32-S3, sử dụng các thuật toán DSP nhẹ nhàng để giảm tải cho phần mềm máy tính và tiến gần hơn đến xử lý thời gian thực.
+    \item Áp dụng các phương pháp lọc thích nghi (adaptive filtering) hoặc lọc Wiener để giảm nhiễu động trong các môi trường công nghiệp thay đổi liên tục.
+    \item Thử nghiệm hệ thống trong thực tế môi trường công nghiệp thực sự, đánh giá khả năng chống nhiễu, độ ổn định khi kéo dài đường dây RS485 và tác động của các nguồn nhiễu xung.
+    \item Xem xét các giải pháp nén tín hiệu âm thanh hoặc truyền dữ liệu theo khung (frame) để tối ưu băng thông và giảm độ trễ.
+\end{itemize}
 
 \printbibliography[title={Tài liệu tham khảo}]
 \end{document}
