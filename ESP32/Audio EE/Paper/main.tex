@@ -1,6 +1,7 @@
 \documentclass[a4paper]{report}
 \usepackage[vietnamese]{babel}
 \usepackage{fontspec}
+\usepackage{float}
 \usepackage{geometry}
 \geometry{top=25mm,bottom=25mm,left=25mm,right=25mm}
 \usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
@@ -38,16 +39,45 @@
 \usepackage{graphicx}
 \graphicspath{{imgs/}} % Khai báo thư mục chứa ảnh
 
-\title{Nghiên cứu và thiết kế hệ thống thu âm thanh ứng dụng giao thức truyền thông công nghiệp RS485}
-\author{Họ và tên sinh viên}
-\date{Tháng 5, 2026}
+\makeatletter
+\newcommand*{\textoverline}[1]{$\overline{\hbox{#1}}\m@th$}
+\makeatother
 
 \begin{document}
-\maketitle
+\begin{center}
+   \textbf{\Large ĐẠI HỌC BÁCH KHOA HÀ NỘI} \\
+   \textbf{\Large TRƯỜNG ĐIỆN - ĐIỆN TỬ} \vspace{3em}
+   
+   \includegraphics[width=5cm]{dhbk.png} \vspace{3em}
 
-\begin{abstract}
-Bản báo cáo trình bày nghiên cứu và thiết kế hệ thống thu âm thanh sử dụng giao thức truyền thông công nghiệp RS485. Nội dung bao gồm phân tích yêu cầu, lựa chọn phần cứng và phần mềm, cấu trúc hệ thống, thiết kế mạch, giải pháp truyền dữ liệu và kết quả thử nghiệm.
-\end{abstract}
+   \textbf{\Huge BÁO CÁO BÀI TẬP LỚN} \\
+   \textbf{\Large KỸ THUẬT ĐO LƯỜNG} \vspace{1em}
+
+
+   \textbf{\LARGE Nghiên cứu và thiết kế hệ thống thu âm thanh ứng dụng giao thức truyền thông công nghiệp RS485} \vspace{3em}
+
+   \begin{minipage}{\textwidth}
+      \begin{flushleft}
+      \hspace*{5cm}
+      \begin{minipage}{\textwidth}
+         \textbf{Giảng viên:} T.S Hoàng Mạnh Cường \
+
+         \textbf{Nhóm sinh viên thực hiện:}
+         \begin{itemize}
+            \item Bùi Nhật Minh --- 20232585
+            \item Đinh Đức Hiệp --- 2023
+            \item Nguyễn Ngọc Khánh --- 2023 
+         \end{itemize}
+      \end{minipage}
+      \end{flushleft}
+   \end{minipage}
+   \vfill
+   \textbf{Hà Nội, \MakeLowercase{\today}}
+\end{center}
+
+% \begin{abstract}
+% Bản báo cáo trình bày nghiên cứu và thiết kế hệ thống thu âm thanh sử dụng giao thức truyền thông công nghiệp RS485. Nội dung bao gồm phân tích yêu cầu, lựa chọn phần cứng và phần mềm, cấu trúc hệ thống, thiết kế mạch, giải pháp truyền dữ liệu và kết quả thử nghiệm.
+% \end{abstract}
 
 \tableofcontents
 \listoffigures
@@ -97,7 +127,7 @@ Do đó, việc nghiên cứu một phương thức truyền dẫn âm thanh có
 
 Một hệ thống đo lường và thu thập dữ liệu hiện đại, đặc biệt là các hệ thống ứng dụng trong công nghiệp, thường được cấu tạo từ các khối chức năng cơ bản nhằm biến đổi đại lượng vật lý cần đo thành thông tin định lượng dưới dạng số. Cấu trúc tổng quát của hệ thống được thể hiện qua sơ đồ khối dưới đây:
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[
         node distance=1.6cm and 2cm,
@@ -166,7 +196,7 @@ Trong hệ thống này, loại cảm biến được sử dụng là micro tụ
 
 Các đặc tính kỹ thuật chi tiết của cảm biến được tổng hợp trong Bảng \ref{tab:specs_mic}\cite{czn15e_datasheet}:
 
-\begin{table}[ht]
+\begin{table}[H]
    \centering
    \caption{Thông số kỹ thuật của cảm biến âm thanh CZN-15E}
    \label{tab:specs_mic}
@@ -192,7 +222,7 @@ Tín hiệu điện áp từ microphone tụ điện thường rất nhỏ (cấ
 
 Các đặc tính điện học của MAX4466 giúp nó trở thành lựa chọn lý tưởng cho các hệ thống thu âm chạy pin hoặc lấy nguồn từ bus vi điều khiển trong môi trường công nghiệp. Các thông số quan trọng được tổng hợp trong Bảng \ref{tab:specs_max4466}:
 
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \caption{Thông số kỹ thuật của bộ tiền khuếch đại MAX4466}
     \label{tab:specs_max4466}
@@ -216,7 +246,7 @@ Các đặc tính điện học của MAX4466 giúp nó trở thành lựa chọ
 
 Để đáp ứng yêu cầu xử lý tín hiệu âm thanh thời gian thực và quản lý giao thức truyền thông công nghiệp, hệ thống sử dụng vi xử lý \textbf{ESP32-S3}. Đây là dòng SoC (System on Chip) mạnh mẽ của Espressif Systems, được thiết kế chuyên biệt cho các ứng dụng IoT tích hợp trí tuệ nhân tạo và xử lý tín hiệu số (DSP) \cite{esp32s3_datasheet}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
    \centering
    \includegraphics[width=0.5\textwidth]{ESP32-S3.jpg} 
    \caption{Vi xử lý ESP32-S3}
@@ -297,7 +327,7 @@ Hệ thống được tổ chức theo kiến trúc một chiều gồm hai thà
 \end{itemize}
 Hai thành phần này kết nối với nhau thông qua đường truyền vật lý RS485.
 
-\begin{figure}[ht]
+\begin{figure}[H]
    \centering
    \begin{tikzpicture}[
       node distance=1.4cm and 2.0cm,
@@ -369,14 +399,14 @@ Hệ thống sử dụng cấu trúc nguồn hai tầng để đảm bảo độ
     \item Điện áp \qty{5}{V} tiếp tục được đưa qua IC ổn áp tuyến tính (LDO) HT7333 để tạo ra nguồn \qty{3,3}{V} ``sạch'' cấp cho ESP32-S3 và các IC ngoại vi nhạy cảm với nhiễu.
     \item Các tụ lọc \qty{10}{\micro\farad} được đặt tại ngõ ra để lọc nhiễu cao tần. LED báo nguồn được mắc để chỉ thị trạng thái hoạt động.
 \end{itemize}
-\begin{figure}[ht]
+\begin{figure}[H]
    \centering
    \includegraphics[width=\textwidth]{mach_nguon.png}
    \caption{Sơ đồ mạch nguồn hạ áp từ \qty{9}{V} xuống \qty{5}{V}}
    \label{fig:power_circuit}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[H]
    \centering
    \includegraphics[width=\textwidth]{mach_nguon_3.3V.png}
    \caption{Sơ đồ mạch nguồn hạ áp từ \qty{5}{V} xuống \qty{3,3}{V}}
@@ -386,7 +416,7 @@ Hệ thống sử dụng cấu trúc nguồn hai tầng để đảm bảo độ
 \subsection{Mạch thu âm}
 Sơ đồ nguyên lý mạch thu âm (Hình \ref{fig:audio_circuit}) sử dụng IC khuếch đại thuật toán MAX4466 làm trung tâm. Mạch được bổ sung các khối chức năng gồm:
 
-\begin{figure}[ht]
+\begin{figure}[H]
    \centering
    \includegraphics[width=\textwidth]{mach_thu_am.png}
    \caption{Sơ đồ mạch thu âm và tiền khuếch đại}
@@ -430,7 +460,7 @@ Mạch được cấu hình theo kiểu khuếch đại không đảo với các
     \item Chân EN được kết nối với mạch RC (điện trở pull-up \qty{10}{k\ohm} và tụ lọc \qty{100}{nF}) theo khuyến nghị của Espressif, đảm bảo điện áp nguồn cung cấp ổn định trước khi vi điều khiển khởi động, tránh hiện tượng Reset không mong muốn.
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}[H]
    \centering
    \includegraphics[width=0.7\textwidth]{mach_mcu.png}
    \caption{Sơ đồ kết nối vi xử lí ESP32-S3}
@@ -443,7 +473,7 @@ Mạch được cấu hình theo kiểu khuếch đại không đảo với các
    \item Điện trở kết thúc (termination resistor) \qty{120}{\ohm} được gắn song song với bus tại đầu connector, phù hợp với trở kháng đặc tính của cáp xoắn đôi, giúp triệt tiêu phản xạ tín hiệu trên đường truyền dài.
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}[H]
    \centering
    \includegraphics[width=\textwidth]{mach_rs485.png}
    \caption{Sơ đồ mạch giao tiếp RS485}
@@ -456,7 +486,7 @@ Mạch được cấu hình theo kiểu khuếch đại không đảo với các
    \item Các chân D+/D– của USB được kết nối trực tiếp tới hai chân GPIO chuyên dụng của ESP32-S3, cho phép nạp firmware và gỡ lỗi trực tiếp mà không cần IC chuyển đổi USB-to-UART rời.
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}[H]
    \centering
    \includegraphics[width=0.6\textwidth]{mach_usb.png}
    \caption{Sơ đồ mạch giao tiếp USB Type-C}
@@ -475,7 +505,7 @@ Các điểm chính của phần mềm nhúng:
   \item Sử dụng cổng UART thứ hai (Serial2) để giao tiếp RS485 ở tốc độ cao: \texttt{460800} bps.
   \item Lấy mẫu ADC với độ phân giải 12-bit, sau đó quy đổi xuống 8-bit để gửi dưới dạng một byte mỗi mẫu.
   \item Tần số lấy mẫu thực thi trong mã: \verb|INTERVAL = 125| micro giây, tương đương tốc độ lấy mẫu xấp xỉ $\displaystyle\frac{1}{125\times 10^{-6}} = 8000\,$Hz.
-  \item Chế độ RS485: half-duplex; chân điều khiển hướng DE/RE được điều khiển bởi GPIO-4 để chọn chiều truyền/nhận.
+  \item Chế độ RS485: half-duplex; chân điều khiển hướng DE/\textoverline{RE} được điều khiển bởi GPIO-4 để chọn chiều truyền/nhận.
   \item Dữ liệu trên bus RS485 được truyền tuần tự dưới dạng các byte mẫu 8-bit. Thiết bị nhận đọc luồng byte liên tục.
 \end{itemize}
 
@@ -496,6 +526,55 @@ Chức năng chính của phần mềm máy tính:
 
 \section{Cài đặt mạch}
 
+Quá trình cài đặt mạch bắt đầu từ việc thực hiện sơ đồ nguyên lý đã thiết kế. Bo mạch được lắp ráp trên PCB một mặt, với phân vùng rõ ràng giữa khối tương tự và khối số để giảm thiểu sự can nhiễu.
+
+\section{Lập trình và cấu hình truyền thông}
+
+Phần mềm nhúng được xây dựng trên nền Arduino-ESP32, sử dụng thư viện \texttt{HardwareSerial} để cấu hình UART cho giao tiếp RS485. Các thông số cấu hình chính như sau:
+
+\begin{itemize}
+    \item Tốc độ truyền: \qty{460800} bit/s.
+    \item Cấu hình dữ liệu: 8 bit dữ liệu, 1 bit dừng, không có kiểm tra chẵn lẻ.
+    \item Chân điều khiển hướng: GPIO-4 dùng để điều khiển DE/\textoverline{RE} của MAX3485.
+    \item Tần số lấy mẫu ADC: \qty{8}{kHz} với độ phân giải 12-bit, sau đó dữ liệu được nén xuống 8-bit để phù hợp băng thông RS485.
+\end{itemize}
+
+Đoạn mã chính của firmware gồm các bước sau:
+
+\begin{enumerate}
+    \item Khởi tạo UART và cấu hình chân DE/\textoverline{RE} ở chế độ output.
+    \item Cấu hình ADC đọc từ kênh tương ứng với đầu ra tiền khuếch đại âm thanh.
+    \item Trong vòng lặp chính, đọc giá trị ADC, chuyển đổi sang dạng mẫu 8-bit và đệm vào mảng dữ liệu.
+    \item Bật DE để chuyển sang chế độ truyền, gửi chuỗi byte mẫu qua RS485, sau đó tắt DE để trả bus về chế độ nhận.
+\end{enumerate}
+
+Máy tính nhận dữ liệu sử dụng phần mềm Python đơn giản. Các thông số kết nối COM được thiết lập trùng khớp với ESP32-S3. Phần mềm thực hiện:
+
+\begin{itemize}
+    \item Đọc liên tục dữ liệu từ cổng COM.
+    \item Kiểm tra và loại bỏ các byte đầu tiên không hợp lệ khi bắt đầu phiên truyền.
+    \item Lưu các mẫu vào buffer theo khối 1~s, chuyển thành file WAV 8-bit mono và lưu vào ổ đĩa.
+\end{itemize}
+
+\section{Kết quả đo lường và đánh giá}
+
+Sau khi hệ thống được lắp và lập trình hoàn chỉnh, quá trình thử nghiệm được thực hiện theo các tiêu chí sau:
+
+\begin{itemize}
+   \item Chất lượng tín hiệu âm thanh: so sánh đầu vào và đầu ra sau khi giải mã bằng tai người và phân tích phổ.
+   \item Độ méo tổng hợp (THD) và tỉ số tín hiệu trên nhiễu (SNR): xác định chất lượng của luồng âm thanh sau khi truyền qua RS485.
+\end{itemize}
+
+Kết quả thu được như sau:
+
+
+
+Đánh giá chung cho thấy hệ thống đạt được mục tiêu chính: thu âm, số hóa và truyền tín hiệu qua RS485 với độ ổn định cao và chất lượng chấp nhận được cho các ứng dụng giám sát âm thanh cơ bản. Một số hạn chế và đề xuất cải tiến:
+
+
+\chapter{Kết luận và hướng phát triển}
+\section{Kết luận}
+\section{Hướng nghiên cứu tương lai}
 
 \printbibliography[title={Tài liệu tham khảo}]
 \end{document}
